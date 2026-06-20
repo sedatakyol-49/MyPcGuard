@@ -106,6 +106,8 @@ public partial class App : Application
                 services.AddSingleton<INetworkScanner, WindowsNetworkScanner>();
                 services.AddSingleton<IDefenderScanner, WindowsDefenderScanner>();
                 services.AddSingleton<IDefenderActionService, WindowsDefenderActionService>();
+                services.AddSingleton<IInstalledProgramScanner, WindowsInstalledProgramScanner>();
+                services.AddSingleton<IInstalledProgramActionService, WindowsInstalledProgramActionService>();
                 break;
             case OperatingSystemType.Linux:
                 services.AddSingleton<ISystemInfoService, LinuxSystemInfoService>();
@@ -116,6 +118,8 @@ public partial class App : Application
                 services.AddSingleton<INetworkScanner, LinuxNetworkScanner>();
                 services.AddSingleton<IDefenderScanner, LinuxDefenderScanner>();
                 services.AddSingleton<IDefenderActionService, UnsupportedDefenderActionService>();
+                services.AddSingleton<IInstalledProgramScanner, UnsupportedInstalledProgramScanner>();
+                services.AddSingleton<IInstalledProgramActionService, UnsupportedInstalledProgramActionService>();
                 break;
             case OperatingSystemType.MacOS:
                 services.AddSingleton<ISystemInfoService, MacSystemInfoService>();
@@ -126,6 +130,8 @@ public partial class App : Application
                 services.AddSingleton<INetworkScanner, MacNetworkScanner>();
                 services.AddSingleton<IDefenderScanner, MacDefenderScanner>();
                 services.AddSingleton<IDefenderActionService, UnsupportedDefenderActionService>();
+                services.AddSingleton<IInstalledProgramScanner, UnsupportedInstalledProgramScanner>();
+                services.AddSingleton<IInstalledProgramActionService, UnsupportedInstalledProgramActionService>();
                 break;
             default:
                 services.AddSingleton<ISystemInfoService, LinuxSystemInfoService>();
@@ -136,6 +142,8 @@ public partial class App : Application
                 services.AddSingleton<INetworkScanner, LinuxNetworkScanner>();
                 services.AddSingleton<IDefenderScanner, LinuxDefenderScanner>();
                 services.AddSingleton<IDefenderActionService, UnsupportedDefenderActionService>();
+                services.AddSingleton<IInstalledProgramScanner, UnsupportedInstalledProgramScanner>();
+                services.AddSingleton<IInstalledProgramActionService, UnsupportedInstalledProgramActionService>();
                 break;
         }
     }

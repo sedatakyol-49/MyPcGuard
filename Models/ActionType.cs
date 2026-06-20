@@ -11,5 +11,6 @@ public enum ActionType
     DeleteQuarantinedFile,
     StartDefenderQuickScan,
     StartDefenderFullScan,
-    OpenWindowsSecurity
+    OpenWindowsSecurity,
+    UninstallProgram
 }

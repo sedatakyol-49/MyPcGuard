@@ -149,4 +149,28 @@
   <data name="Autostart_StopProcessTooltip" xml:space="preserve"><value>Izin verilirse bu ogeye ait calisan islemi durdurur.</value></data>
   <data name="Autostart_OpenFileLocationTooltip" xml:space="preserve"><value>Dosyanin klasorunu Explorer'da acar.</value></data>
   <data name="Autostart_StartDefenderScanTooltip" xml:space="preserve"><value>Guvenli kontrol icin Windows Defender hizli taramasi baslatir.</value></data>
+  <data name="Dashboard_SecurityProtection" xml:space="preserve"><value>Koruma</value></data>
+  <data name="Dashboard_PerformanceOptimization" xml:space="preserve"><value>Hizlandirma</value></data>
+  <data name="Dashboard_ProgramsControl" xml:space="preserve"><value>Programlar</value></data>
+  <data name="Dashboard_SecuritySummaryNotScanned" xml:space="preserve"><value>Defender, imzalar ve riskli islemler icin tarama baslat.</value></data>
+  <data name="Dashboard_PerformanceSummaryNotScanned" xml:space="preserve"><value>Baslangic yuku ve gereksiz baslangic programlari icin tarama baslat.</value></data>
+  <data name="Dashboard_SecuritySummary" xml:space="preserve"><value>{0}. {1} onemli bulgu dikkat istiyor.</value></data>
+  <data name="Dashboard_PerformanceSummary" xml:space="preserve"><value>{0} baslangic ogesi bulundu, {1} tanesi optimize edilebilir.</value></data>
+  <data name="Dashboard_ProgramsSummary" xml:space="preserve"><value>{0} yuklu program algilandi. Surumleri gor ve resmi kaldiriciyi baslat.</value></data>
+  <data name="Security_RealtimeProtectionActive" xml:space="preserve"><value>Defender gercek zamanli koruma aktif</value></data>
+  <data name="Security_RealtimeProtectionNeedsAttention" xml:space="preserve"><value>Defender gercek zamanli koruma dikkat istiyor</value></data>
+  <data name="Processes_Intro" xml:space="preserve"><value>Calisan islemleri CPU kullanimi, imza, yayinci ve dosya yolu ile gosterir.</value></data>
+  <data name="Processes_Empty" xml:space="preserve"><value>Henuz islem verisi yuklenmedi. Tarama baslat veya kisa bir sure bekle.</value></data>
+  <data name="Nav_Programs" xml:space="preserve"><value>Programlar</value></data>
+  <data name="Programs_Intro" xml:space="preserve"><value>Windows'ta yuklu programlari gor, surumleri kontrol et ve gerekirse resmi kaldiriciyi baslat.</value></data>
+  <data name="Programs_Count" xml:space="preserve"><value>{0} program bulundu</value></data>
+  <data name="Common_Version" xml:space="preserve"><value>Surum</value></data>
+  <data name="Programs_InstallDate" xml:space="preserve"><value>Kurulum</value></data>
+  <data name="Programs_Size" xml:space="preserve"><value>Boyut</value></data>
+  <data name="Programs_Uninstall" xml:space="preserve"><value>Kaldir</value></data>
+  <data name="Programs_UninstallTooltip" xml:space="preserve"><value>Bu programin Windows kaldiricisini baslatir. MyPcGuard dosyalari dogrudan silmez.</value></data>
+  <data name="Programs_UninstallConfirm" xml:space="preserve"><value>{0} icin Windows kaldiricisi baslatilsin mi?</value></data>
+  <data name="Action_Uninstall_Started" xml:space="preserve"><value>Kaldirici baslatildi.</value></data>
+  <data name="Action_Uninstall_Failed" xml:space="preserve"><value>Kaldirici baslatilamadi.</value></data>
+  <data name="Action_Uninstall_NotAvailable" xml:space="preserve"><value>Bu program icin kaldirma komutu bulunamadi.</value></data>
 </root>

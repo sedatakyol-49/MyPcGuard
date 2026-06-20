@@ -29,4 +29,28 @@
   <data name="Autostart_StopProcessTooltip" xml:space="preserve"><value>Stoppt den aktuell laufenden Prozess zu diesem Eintrag, falls erlaubt.</value></data>
   <data name="Autostart_OpenFileLocationTooltip" xml:space="preserve"><value>Oeffnet den Ordner der Datei im Explorer.</value></data>
   <data name="Autostart_StartDefenderScanTooltip" xml:space="preserve"><value>Startet einen Windows Defender Schnellscan fuer eine sichere Pruefung.</value></data>
+  <data name="Dashboard_SecurityProtection" xml:space="preserve"><value>Schutz</value></data>
+  <data name="Dashboard_PerformanceOptimization" xml:space="preserve"><value>Beschleunigen</value></data>
+  <data name="Dashboard_ProgramsControl" xml:space="preserve"><value>Programme</value></data>
+  <data name="Dashboard_SecuritySummaryNotScanned" xml:space="preserve"><value>Starte einen Scan, um Defender, Signaturen und riskante Prozesse zu pruefen.</value></data>
+  <data name="Dashboard_PerformanceSummaryNotScanned" xml:space="preserve"><value>Starte einen Scan, um Autostart-Last und unnoetige Startprogramme zu sehen.</value></data>
+  <data name="Dashboard_SecuritySummary" xml:space="preserve"><value>{0}. {1} relevante Befunde brauchen Aufmerksamkeit.</value></data>
+  <data name="Dashboard_PerformanceSummary" xml:space="preserve"><value>{0} Autostart-Eintraege gefunden, davon {1} potenziell optimierbar.</value></data>
+  <data name="Dashboard_ProgramsSummary" xml:space="preserve"><value>{0} installierte Programme erkannt. Versionen ansehen und offizielle Uninstaller starten.</value></data>
+  <data name="Security_RealtimeProtectionActive" xml:space="preserve"><value>Defender Echtzeitschutz ist aktiv</value></data>
+  <data name="Security_RealtimeProtectionNeedsAttention" xml:space="preserve"><value>Defender Echtzeitschutz braucht Aufmerksamkeit</value></data>
+  <data name="Processes_Intro" xml:space="preserve"><value>Laufende Prozesse mit CPU-Auslastung, Signatur, Publisher und Dateipfad.</value></data>
+  <data name="Processes_Empty" xml:space="preserve"><value>Noch keine Prozessdaten geladen. Starte einen Scan oder warte kurz.</value></data>
+  <data name="Nav_Programs" xml:space="preserve"><value>Programme</value></data>
+  <data name="Programs_Intro" xml:space="preserve"><value>Installierte Programme aus Windows anzeigen, Versionen pruefen und bei Bedarf den offiziellen Uninstaller starten.</value></data>
+  <data name="Programs_Count" xml:space="preserve"><value>{0} Programme gefunden</value></data>
+  <data name="Common_Version" xml:space="preserve"><value>Version</value></data>
+  <data name="Programs_InstallDate" xml:space="preserve"><value>Installiert</value></data>
+  <data name="Programs_Size" xml:space="preserve"><value>Groesse</value></data>
+  <data name="Programs_Uninstall" xml:space="preserve"><value>Deinstallieren</value></data>
+  <data name="Programs_UninstallTooltip" xml:space="preserve"><value>Startet den Windows-Uninstaller dieses Programms. MyPcGuard loescht nichts direkt.</value></data>
+  <data name="Programs_UninstallConfirm" xml:space="preserve"><value>Windows-Uninstaller fuer {0} starten?</value></data>
+  <data name="Action_Uninstall_Started" xml:space="preserve"><value>Uninstaller wurde gestartet.</value></data>
+  <data name="Action_Uninstall_Failed" xml:space="preserve"><value>Uninstaller konnte nicht gestartet werden.</value></data>
+  <data name="Action_Uninstall_NotAvailable" xml:space="preserve"><value>Fuer dieses Programm wurde kein Uninstall-Befehl gefunden.</value></data>
 </root>

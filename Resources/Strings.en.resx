@@ -149,4 +149,28 @@
   <data name="Autostart_StopProcessTooltip" xml:space="preserve"><value>Stops the currently running process for this item, if allowed.</value></data>
   <data name="Autostart_OpenFileLocationTooltip" xml:space="preserve"><value>Opens the file's folder in Explorer.</value></data>
   <data name="Autostart_StartDefenderScanTooltip" xml:space="preserve"><value>Starts a Windows Defender quick scan for a safe check.</value></data>
+  <data name="Dashboard_SecurityProtection" xml:space="preserve"><value>Protection</value></data>
+  <data name="Dashboard_PerformanceOptimization" xml:space="preserve"><value>Speed up</value></data>
+  <data name="Dashboard_ProgramsControl" xml:space="preserve"><value>Programs</value></data>
+  <data name="Dashboard_SecuritySummaryNotScanned" xml:space="preserve"><value>Start a scan to check Defender, signatures and risky processes.</value></data>
+  <data name="Dashboard_PerformanceSummaryNotScanned" xml:space="preserve"><value>Start a scan to see startup load and unnecessary startup programs.</value></data>
+  <data name="Dashboard_SecuritySummary" xml:space="preserve"><value>{0}. {1} relevant findings need attention.</value></data>
+  <data name="Dashboard_PerformanceSummary" xml:space="preserve"><value>{0} startup items found, {1} potentially optimizable.</value></data>
+  <data name="Dashboard_ProgramsSummary" xml:space="preserve"><value>{0} installed programs detected. Review versions and start official uninstallers.</value></data>
+  <data name="Security_RealtimeProtectionActive" xml:space="preserve"><value>Defender real-time protection is active</value></data>
+  <data name="Security_RealtimeProtectionNeedsAttention" xml:space="preserve"><value>Defender real-time protection needs attention</value></data>
+  <data name="Processes_Intro" xml:space="preserve"><value>Running processes with CPU usage, signature, publisher and file path.</value></data>
+  <data name="Processes_Empty" xml:space="preserve"><value>No process data is loaded yet. Start a scan or wait a moment.</value></data>
+  <data name="Nav_Programs" xml:space="preserve"><value>Programs</value></data>
+  <data name="Programs_Intro" xml:space="preserve"><value>View installed Windows programs, check versions, and start the official uninstaller when needed.</value></data>
+  <data name="Programs_Count" xml:space="preserve"><value>{0} programs found</value></data>
+  <data name="Common_Version" xml:space="preserve"><value>Version</value></data>
+  <data name="Programs_InstallDate" xml:space="preserve"><value>Installed</value></data>
+  <data name="Programs_Size" xml:space="preserve"><value>Size</value></data>
+  <data name="Programs_Uninstall" xml:space="preserve"><value>Uninstall</value></data>
+  <data name="Programs_UninstallTooltip" xml:space="preserve"><value>Starts this program's Windows uninstaller. MyPcGuard does not delete files directly.</value></data>
+  <data name="Programs_UninstallConfirm" xml:space="preserve"><value>Start the Windows uninstaller for {0}?</value></data>
+  <data name="Action_Uninstall_Started" xml:space="preserve"><value>Uninstaller was started.</value></data>
+  <data name="Action_Uninstall_Failed" xml:space="preserve"><value>Uninstaller could not be started.</value></data>
+  <data name="Action_Uninstall_NotAvailable" xml:space="preserve"><value>No uninstall command was found for this program.</value></data>
 </root>

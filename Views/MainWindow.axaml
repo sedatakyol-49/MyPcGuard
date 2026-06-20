@@ -60,26 +60,31 @@
                         <TextBlock Text="{Binding NavProcesses}" Foreground="{Binding ProcessesNavForeground}" FontWeight="SemiBold"/>
                     </Button>
                     <Button Command="{Binding SelectSectionCommand}" CommandParameter="3" Cursor="Hand"
+                            Background="{Binding ProgramsNavBackground}" BorderThickness="0"
+                            HorizontalContentAlignment="Stretch" Padding="12,10">
+                        <TextBlock Text="{Binding NavPrograms}" Foreground="{Binding ProgramsNavForeground}" FontWeight="SemiBold"/>
+                    </Button>
+                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="4" Cursor="Hand"
                             Background="{Binding SecurityNavBackground}" BorderThickness="0"
                             HorizontalContentAlignment="Stretch" Padding="12,10">
                         <TextBlock Text="{Binding NavSecurity}" Foreground="{Binding SecurityNavForeground}" FontWeight="SemiBold"/>
                     </Button>
-                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="4" Cursor="Hand"
+                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="5" Cursor="Hand"
                             Background="{Binding QuarantineNavBackground}" BorderThickness="0"
                             HorizontalContentAlignment="Stretch" Padding="12,10">
                         <TextBlock Text="{Binding NavQuarantine}" Foreground="{Binding QuarantineNavForeground}" FontWeight="SemiBold"/>
                     </Button>
-                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="5" Cursor="Hand"
+                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="6" Cursor="Hand"
                             Background="{Binding HistoryNavBackground}" BorderThickness="0"
                             HorizontalContentAlignment="Stretch" Padding="12,10">
                         <TextBlock Text="{Binding NavHistory}" Foreground="{Binding HistoryNavForeground}" FontWeight="SemiBold"/>
                     </Button>
-                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="6" Cursor="Hand"
+                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="7" Cursor="Hand"
                             Background="{Binding ReportsNavBackground}" BorderThickness="0"
                             HorizontalContentAlignment="Stretch" Padding="12,10">
                         <TextBlock Text="{Binding NavReports}" Foreground="{Binding ReportsNavForeground}" FontWeight="SemiBold"/>
                     </Button>
-                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="7" Cursor="Hand"
+                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="8" Cursor="Hand"
                             Background="{Binding SettingsNavBackground}" BorderThickness="0"
                             HorizontalContentAlignment="Stretch" Padding="12,10">
                         <TextBlock Text="{Binding NavSettings}" Foreground="{Binding SettingsNavForeground}" FontWeight="SemiBold"/>
@@ -185,6 +190,27 @@
                                 <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding DefenderLabel}" Foreground="#64748B"/>
                                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DefenderStatus.StatusText}"/>
                             </Grid>
+
+                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="0,8,0,0">
+                                <Border Grid.Column="0" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                    <StackPanel Spacing="6">
+                                        <TextBlock Text="{Binding DashboardSecurityTitleText}" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                        <TextBlock Text="{Binding DashboardSecuritySummaryText}" Foreground="#475569" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                    <StackPanel Spacing="6">
+                                        <TextBlock Text="{Binding DashboardPerformanceTitleText}" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                        <TextBlock Text="{Binding DashboardPerformanceSummaryText}" Foreground="#475569" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="2" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                    <StackPanel Spacing="6">
+                                        <TextBlock Text="{Binding DashboardProgramsTitleText}" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                        <TextBlock Text="{Binding DashboardProgramsSummaryText}" Foreground="#475569" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
                         </StackPanel>
                     </StackPanel>
 
@@ -229,8 +255,17 @@
                         </ListBox>
                     </Grid>
 
-                    <Grid IsVisible="{Binding IsProcessesVisible}">
-                        <ListBox ItemsSource="{Binding Processes}" Margin="0,12,0,0" Background="Transparent" BorderThickness="0">
+                    <Grid IsVisible="{Binding IsProcessesVisible}" RowDefinitions="Auto,*" RowSpacing="10" Margin="0,12,0,0">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding ProcessesIntroText}" Foreground="#475467" FontSize="13" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding ProcessesEmptyText}"
+                                       IsVisible="{Binding IsProcessesEmpty}"
+                                       Foreground="#667085"
+                                       FontSize="13"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <ListBox Grid.Row="1" ItemsSource="{Binding Processes}" Background="Transparent" BorderThickness="0">
                             <ListBox.ItemTemplate>
                                 <DataTemplate x:DataType="models:ProcessScanItem">
                                     <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
@@ -383,6 +418,62 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                             </Grid>
+                        </ScrollViewer>
+                    </Grid>
+
+                    <Grid IsVisible="{Binding IsProgramsVisible}" RowDefinitions="Auto,Auto,*" RowSpacing="10" Margin="0,12,0,0">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding ProgramsIntroText}" Foreground="#475569" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding ProgramsCountText}" Foreground="#64748B"/>
+                        </StackPanel>
+
+                        <Border Grid.Row="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
+                            <Grid ColumnDefinitions="240,110,180,120,100,*,170" ColumnSpacing="10">
+                                <TextBlock Grid.Column="0" Text="{Binding NameText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="1" Text="{Binding VersionText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="2" Text="{Binding PublisherText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="3" Text="{Binding InstallDateText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="4" Text="{Binding SizeText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="5" Text="{Binding PathText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="6" Text="{Binding ActionsText}" Foreground="#475467" FontWeight="SemiBold"/>
+                            </Grid>
+                        </Border>
+
+                        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Auto">
+                            <ListBox ItemsSource="{Binding InstalledPrograms}" Background="Transparent" BorderThickness="0" MinWidth="1120">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:InstalledProgramItem">
+                                        <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
+                                            <Grid ColumnDefinitions="240,110,180,120,100,*,170" ColumnSpacing="10">
+                                                <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Version}" TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding Publisher}" TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Grid.Column="3" Text="{Binding InstallDate}" TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Grid.Column="4" Text="{Binding SizeText}" TextTrimming="CharacterEllipsis"/>
+                                                <TextBox Grid.Column="5"
+                                                         Text="{Binding InstallLocation}"
+                                                         IsReadOnly="True"
+                                                         BorderThickness="0"
+                                                         Background="Transparent"
+                                                         Padding="0"
+                                                         Cursor="IBeam"
+                                                         TextWrapping="NoWrap"
+                                                         x:CompileBindings="False"
+                                                         ToolTip.Tip="{Binding DataContext.CopyPathHintText, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                                <Button Grid.Column="6"
+                                                        x:CompileBindings="False"
+                                                        Content="{Binding DataContext.UninstallText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                        Command="{Binding DataContext.UninstallProgramCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                        CommandParameter="{Binding}"
+                                                        IsEnabled="{Binding CanUninstall}"
+                                                        Cursor="Hand"
+                                                        ToolTip.Tip="{Binding DataContext.UninstallTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                        Padding="10,6"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </ScrollViewer>
                     </Grid>
 

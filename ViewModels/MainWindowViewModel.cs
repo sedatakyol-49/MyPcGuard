@@ -23,6 +23,9 @@ public partial class MainWindowViewModel : ViewModelBase
     private readonly IDefenderActionService defenderActionService;
     private readonly IQuarantineService quarantineService;
     private readonly IActionHistoryService actionHistoryService;
+    private readonly IInstalledProgramScanner installedProgramScanner;
+    private readonly IInstalledProgramActionService installedProgramActionService;
+    private readonly IProcessScanner processScanner;
     private bool isInitializingLanguage;
 
     public MainWindowViewModel(
@@ -34,7 +37,10 @@ public partial class MainWindowViewModel : ViewModelBase
         ILocalizationService localizationService,
         IDefenderActionService defenderActionService,
         IQuarantineService quarantineService,
-        IActionHistoryService actionHistoryService)
+        IActionHistoryService actionHistoryService,
+        IInstalledProgramScanner installedProgramScanner,
+        IInstalledProgramActionService installedProgramActionService,
+        IProcessScanner processScanner)
     {
         this.systemInfoService = systemInfoService;
         this.scanOrchestrator = scanOrchestrator;
@@ -45,6 +51,9 @@ public partial class MainWindowViewModel : ViewModelBase
         this.defenderActionService = defenderActionService;
         this.quarantineService = quarantineService;
         this.actionHistoryService = actionHistoryService;
+        this.installedProgramScanner = installedProgramScanner;
+        this.installedProgramActionService = installedProgramActionService;
+        this.processScanner = processScanner;
         localizationService.CultureChanged += (_, _) => NotifyLocalizedProperties();
         isInitializingLanguage = true;
         SelectedLanguage = SupportedLanguages.FirstOrDefault(language => language.CultureCode == localizationService.CurrentCulture) ?? SupportedLanguages[0];
@@ -66,9 +75,12 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(RiskLevelText))]
     [NotifyPropertyChangedFor(nameof(FindingsCountText))]
+    [NotifyPropertyChangedFor(nameof(DashboardSecuritySummaryText))]
+    [NotifyPropertyChangedFor(nameof(DashboardPerformanceSummaryText))]
     [NotifyPropertyChangedFor(nameof(Findings))]
     [NotifyPropertyChangedFor(nameof(FilteredFindings))]
     [NotifyPropertyChangedFor(nameof(Processes))]
+    [NotifyPropertyChangedFor(nameof(IsProcessesEmpty))]
     [NotifyPropertyChangedFor(nameof(StartupItems))]
     [NotifyPropertyChangedFor(nameof(Services))]
     [NotifyPropertyChangedFor(nameof(NetworkConnections))]
@@ -101,10 +113,20 @@ public partial class MainWindowViewModel : ViewModelBase
     private IReadOnlyList<ActionHistoryItem> actionHistoryItems = [];
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(DashboardProgramsSummaryText))]
+    private IReadOnlyList<InstalledProgramItem> installedPrograms = [];
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Processes))]
+    [NotifyPropertyChangedFor(nameof(IsProcessesEmpty))]
+    private ObservableCollection<ProcessScanItem> liveProcesses = [];
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOverviewVisible))]
     [NotifyPropertyChangedFor(nameof(IsFindingsVisible))]
     [NotifyPropertyChangedFor(nameof(IsProcessesVisible))]
     [NotifyPropertyChangedFor(nameof(IsStartupVisible))]
+    [NotifyPropertyChangedFor(nameof(IsProgramsVisible))]
     [NotifyPropertyChangedFor(nameof(IsSecurityVisible))]
     [NotifyPropertyChangedFor(nameof(IsQuarantineVisible))]
     [NotifyPropertyChangedFor(nameof(IsHistoryVisible))]
@@ -123,6 +145,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(DashboardNavBackground))]
     [NotifyPropertyChangedFor(nameof(AutostartNavBackground))]
     [NotifyPropertyChangedFor(nameof(SecurityNavBackground))]
+    [NotifyPropertyChangedFor(nameof(ProgramsNavBackground))]
     [NotifyPropertyChangedFor(nameof(QuarantineNavBackground))]
     [NotifyPropertyChangedFor(nameof(HistoryNavBackground))]
     [NotifyPropertyChangedFor(nameof(ReportsNavBackground))]
@@ -137,6 +160,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(DashboardNavForeground))]
     [NotifyPropertyChangedFor(nameof(AutostartNavForeground))]
     [NotifyPropertyChangedFor(nameof(SecurityNavForeground))]
+    [NotifyPropertyChangedFor(nameof(ProgramsNavForeground))]
     [NotifyPropertyChangedFor(nameof(QuarantineNavForeground))]
     [NotifyPropertyChangedFor(nameof(HistoryNavForeground))]
     [NotifyPropertyChangedFor(nameof(ReportsNavForeground))]
@@ -149,13 +173,13 @@ public partial class MainWindowViewModel : ViewModelBase
     public string MemoryUsageText => $"{Overview.MemoryUsagePercent:0.0}%";
     public string DiskUsageText => $"{Overview.DiskUsagePercent:0.0}%";
     public string RiskLevelText => ScanResult?.OverallRiskLevel.ToString() ?? T("Status_NotScanned");
-    public string FindingsCountText => ScanResult is null ? "-" : FilteredFindings.Count.ToString();
+    public string FindingsCountText => ScanResult is null ? "-" : ScanResult.Findings.Count.ToString();
     public IReadOnlyList<string> FindingFilters => [T("Filter_All"), T("Risk_Critical"), T("Risk_High"), T("Risk_Medium"), T("Risk_Low"), T("Risk_Info")];
     public IReadOnlyList<string> StartupFilters => [T("Filter_All"), T("Filter_Active"), T("Filter_Disabled"), T("Autostart_SystemCritical"), T("Autostart_Optional"), T("Autostart_Unnecessary"), T("Autostart_Suspicious"), T("Autostart_Unknown")];
     public IReadOnlyList<SupportedLanguage> SupportedLanguages => localizationService.GetSupportedLanguages();
     public ObservableCollection<RiskFinding> Findings => ScanResult?.Findings ?? [];
     public IReadOnlyList<RiskFinding> FilteredFindings => GetFilteredFindings();
-    public ObservableCollection<ProcessScanItem> Processes => ScanResult?.Processes ?? [];
+    public ObservableCollection<ProcessScanItem> Processes => ScanResult?.Processes ?? LiveProcesses;
     public ObservableCollection<StartupItem> StartupItems => ScanResult?.StartupItems ?? [];
     public IReadOnlyList<StartupItem> FilteredStartupItems => GetFilteredStartupItems();
     public ObservableCollection<ServiceScanItem> Services => ScanResult?.Services ?? [];
@@ -164,15 +188,16 @@ public partial class MainWindowViewModel : ViewModelBase
     public bool IsOverviewVisible => SelectedSectionIndex == 0;
     public bool IsStartupVisible => SelectedSectionIndex == 1;
     public bool IsProcessesVisible => SelectedSectionIndex == 2;
-    public bool IsSecurityVisible => SelectedSectionIndex == 3;
-    public bool IsQuarantineVisible => SelectedSectionIndex == 4;
-    public bool IsHistoryVisible => SelectedSectionIndex == 5;
-    public bool IsReportsVisible => SelectedSectionIndex == 6;
-    public bool IsSettingsVisible => SelectedSectionIndex == 7;
+    public bool IsProgramsVisible => SelectedSectionIndex == 3;
+    public bool IsSecurityVisible => SelectedSectionIndex == 4;
+    public bool IsQuarantineVisible => SelectedSectionIndex == 5;
+    public bool IsHistoryVisible => SelectedSectionIndex == 6;
+    public bool IsReportsVisible => SelectedSectionIndex == 7;
+    public bool IsSettingsVisible => SelectedSectionIndex == 8;
     public bool IsFindingsVisible => false;
     public bool IsServicesVisible => false;
     public bool IsNetworkVisible => false;
-    public bool IsDefenderVisible => SelectedSectionIndex == 3;
+    public bool IsDefenderVisible => SelectedSectionIndex == 4;
     public IBrush OverviewNavBackground => GetNavigationBackground(0);
     public IBrush FindingsNavBackground => GetNavigationBackground(1);
     public IBrush ProcessesNavBackground => GetNavigationBackground(2);
@@ -182,11 +207,12 @@ public partial class MainWindowViewModel : ViewModelBase
     public IBrush DefenderNavBackground => GetNavigationBackground(6);
     public IBrush DashboardNavBackground => GetNavigationBackground(0);
     public IBrush AutostartNavBackground => GetNavigationBackground(1);
-    public IBrush SecurityNavBackground => GetNavigationBackground(3);
-    public IBrush QuarantineNavBackground => GetNavigationBackground(4);
-    public IBrush HistoryNavBackground => GetNavigationBackground(5);
-    public IBrush ReportsNavBackground => GetNavigationBackground(6);
-    public IBrush SettingsNavBackground => GetNavigationBackground(7);
+    public IBrush ProgramsNavBackground => GetNavigationBackground(3);
+    public IBrush SecurityNavBackground => GetNavigationBackground(4);
+    public IBrush QuarantineNavBackground => GetNavigationBackground(5);
+    public IBrush HistoryNavBackground => GetNavigationBackground(6);
+    public IBrush ReportsNavBackground => GetNavigationBackground(7);
+    public IBrush SettingsNavBackground => GetNavigationBackground(8);
     public IBrush OverviewNavForeground => GetNavigationForeground(0);
     public IBrush FindingsNavForeground => GetNavigationForeground(1);
     public IBrush ProcessesNavForeground => GetNavigationForeground(2);
@@ -196,21 +222,23 @@ public partial class MainWindowViewModel : ViewModelBase
     public IBrush DefenderNavForeground => GetNavigationForeground(6);
     public IBrush DashboardNavForeground => GetNavigationForeground(0);
     public IBrush AutostartNavForeground => GetNavigationForeground(1);
-    public IBrush SecurityNavForeground => GetNavigationForeground(3);
-    public IBrush QuarantineNavForeground => GetNavigationForeground(4);
-    public IBrush HistoryNavForeground => GetNavigationForeground(5);
-    public IBrush ReportsNavForeground => GetNavigationForeground(6);
-    public IBrush SettingsNavForeground => GetNavigationForeground(7);
+    public IBrush ProgramsNavForeground => GetNavigationForeground(3);
+    public IBrush SecurityNavForeground => GetNavigationForeground(4);
+    public IBrush QuarantineNavForeground => GetNavigationForeground(5);
+    public IBrush HistoryNavForeground => GetNavigationForeground(6);
+    public IBrush ReportsNavForeground => GetNavigationForeground(7);
+    public IBrush SettingsNavForeground => GetNavigationForeground(8);
     public string SelectedSectionTitle => SelectedSectionIndex switch
     {
         0 => T("Nav_Dashboard"),
         1 => T("Nav_Autostart"),
         2 => T("Nav_Processes"),
-        3 => T("Nav_Security"),
-        4 => T("Nav_Quarantine"),
-        5 => T("Nav_History"),
-        6 => T("Nav_Reports"),
-        7 => T("Nav_Settings"),
+        3 => T("Nav_Programs"),
+        4 => T("Nav_Security"),
+        5 => T("Nav_Quarantine"),
+        6 => T("Nav_History"),
+        7 => T("Nav_Reports"),
+        8 => T("Nav_Settings"),
         _ => T("Nav_Dashboard")
     };
     public string AppTitle => T("App_Title");
@@ -221,6 +249,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public string NavDashboard => T("Nav_Dashboard");
     public string NavAutostart => T("Nav_Autostart");
     public string NavProcesses => T("Nav_Processes");
+    public string NavPrograms => T("Nav_Programs");
     public string NavSecurity => T("Nav_Security");
     public string NavQuarantine => T("Nav_Quarantine");
     public string NavHistory => T("Nav_History");
@@ -237,6 +266,12 @@ public partial class MainWindowViewModel : ViewModelBase
     public string DiskUsageLabel => T("Dashboard_DiskUsage");
     public string FindingsCountLabel => T("Dashboard_FindingsCount");
     public string GeneralStatusText => T("Dashboard_TotalStatus");
+    public string DashboardSecurityTitleText => T("Dashboard_SecurityProtection");
+    public string DashboardPerformanceTitleText => T("Dashboard_PerformanceOptimization");
+    public string DashboardProgramsTitleText => T("Dashboard_ProgramsControl");
+    public string DashboardSecuritySummaryText => GetDashboardSecuritySummary();
+    public string DashboardPerformanceSummaryText => GetDashboardPerformanceSummary();
+    public string DashboardProgramsSummaryText => localizationService.GetString("Dashboard_ProgramsSummary", InstalledPrograms.Count);
     public string OperatingSystemLabel => T("Dashboard_OperatingSystem");
     public string DefenderLabel => T("Security_Defender");
     public string NotScannedText => T("Status_NotScanned");
@@ -293,6 +328,15 @@ public partial class MainWindowViewModel : ViewModelBase
     public string HistoryEmptyText => T("History_Empty");
     public string ReportsIntroText => T("Reports_Intro");
     public string ReportsEmptyText => T("Reports_Empty");
+    public string ProcessesIntroText => T("Processes_Intro");
+    public string ProcessesEmptyText => T("Processes_Empty");
+    public string ProgramsIntroText => T("Programs_Intro");
+    public string ProgramsCountText => localizationService.GetString("Programs_Count", InstalledPrograms.Count);
+    public string VersionText => T("Common_Version");
+    public string InstallDateText => T("Programs_InstallDate");
+    public string SizeText => T("Programs_Size");
+    public string UninstallText => T("Programs_Uninstall");
+    public string UninstallTooltipText => T("Programs_UninstallTooltip");
     public string StartupTotalText => StartupItems.Count.ToString();
     public string StartupActiveText => StartupItems.Count(item => item.IsEnabled).ToString();
     public string StartupDisabledText => StartupItems.Count(item => !item.IsEnabled).ToString();
@@ -301,6 +345,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public string StartupEssentialText => StartupItems.Count(item => item.StartupClassification == StartupClassification.Essential).ToString();
     public string QuarantineCountText => QuarantineItems.Count.ToString();
     public string HistoryCountText => ActionHistoryItems.Count.ToString();
+    public bool IsProcessesEmpty => Processes.Count == 0;
     public bool IsQuarantineEmpty => QuarantineItems.Count == 0;
     public bool IsHistoryEmpty => ActionHistoryItems.Count == 0;
 
@@ -346,7 +391,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void SelectSection(string sectionIndex)
     {
-        if (int.TryParse(sectionIndex, out var index) && index is >= 0 and <= 7)
+        if (int.TryParse(sectionIndex, out var index) && index is >= 0 and <= 8)
         {
             SelectedSectionIndex = index;
         }
@@ -385,6 +430,7 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(NavDashboard));
         OnPropertyChanged(nameof(NavAutostart));
         OnPropertyChanged(nameof(NavProcesses));
+        OnPropertyChanged(nameof(NavPrograms));
         OnPropertyChanged(nameof(NavSecurity));
         OnPropertyChanged(nameof(NavQuarantine));
         OnPropertyChanged(nameof(NavHistory));
@@ -401,6 +447,12 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(DiskUsageLabel));
         OnPropertyChanged(nameof(FindingsCountLabel));
         OnPropertyChanged(nameof(GeneralStatusText));
+        OnPropertyChanged(nameof(DashboardSecurityTitleText));
+        OnPropertyChanged(nameof(DashboardPerformanceTitleText));
+        OnPropertyChanged(nameof(DashboardProgramsTitleText));
+        OnPropertyChanged(nameof(DashboardSecuritySummaryText));
+        OnPropertyChanged(nameof(DashboardPerformanceSummaryText));
+        OnPropertyChanged(nameof(DashboardProgramsSummaryText));
         OnPropertyChanged(nameof(OperatingSystemLabel));
         OnPropertyChanged(nameof(DefenderLabel));
         OnPropertyChanged(nameof(NotScannedText));
@@ -456,14 +508,28 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(HistoryEmptyText));
         OnPropertyChanged(nameof(ReportsIntroText));
         OnPropertyChanged(nameof(ReportsEmptyText));
+        OnPropertyChanged(nameof(ProcessesIntroText));
+        OnPropertyChanged(nameof(ProcessesEmptyText));
+        OnPropertyChanged(nameof(ProgramsIntroText));
+        OnPropertyChanged(nameof(ProgramsCountText));
+        OnPropertyChanged(nameof(VersionText));
+        OnPropertyChanged(nameof(InstallDateText));
+        OnPropertyChanged(nameof(SizeText));
+        OnPropertyChanged(nameof(UninstallText));
+        OnPropertyChanged(nameof(UninstallTooltipText));
     }
 
     private async Task LoadProductDataAsync()
     {
         QuarantineItems = await quarantineService.GetItemsAsync(CancellationToken.None);
         ActionHistoryItems = await actionHistoryService.GetHistoryAsync(CancellationToken.None);
+        InstalledPrograms = await installedProgramScanner.ScanAsync(CancellationToken.None);
+        LiveProcesses = new ObservableCollection<ProcessScanItem>(await processScanner.ScanAsync(CancellationToken.None));
         OnPropertyChanged(nameof(QuarantineCountText));
         OnPropertyChanged(nameof(HistoryCountText));
+        OnPropertyChanged(nameof(ProgramsCountText));
+        OnPropertyChanged(nameof(DashboardProgramsSummaryText));
+        OnPropertyChanged(nameof(IsProcessesEmpty));
         OnPropertyChanged(nameof(IsQuarantineEmpty));
         OnPropertyChanged(nameof(IsHistoryEmpty));
     }
@@ -500,6 +566,34 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(StartupOptionalText));
         OnPropertyChanged(nameof(StartupSuspiciousText));
         OnPropertyChanged(nameof(StartupEssentialText));
+        OnPropertyChanged(nameof(DashboardPerformanceSummaryText));
+        OnPropertyChanged(nameof(DashboardSecuritySummaryText));
+    }
+
+    private string GetDashboardSecuritySummary()
+    {
+        if (ScanResult is null)
+        {
+            return T("Dashboard_SecuritySummaryNotScanned");
+        }
+
+        var actionableFindings = ScanResult.Findings.Count(finding => finding.Level is RiskLevel.Critical or RiskLevel.High or RiskLevel.Medium or RiskLevel.Low);
+        var defenderText = DefenderStatus.RealTimeProtectionEnabled == true
+            ? T("Security_RealtimeProtectionActive")
+            : T("Security_RealtimeProtectionNeedsAttention");
+
+        return localizationService.GetString("Dashboard_SecuritySummary", defenderText, actionableFindings);
+    }
+
+    private string GetDashboardPerformanceSummary()
+    {
+        if (ScanResult is null)
+        {
+            return T("Dashboard_PerformanceSummaryNotScanned");
+        }
+
+        var optimizable = StartupItems.Count(item => item.StartupClassification is StartupClassification.Optional or StartupClassification.Unnecessary);
+        return localizationService.GetString("Dashboard_PerformanceSummary", StartupItems.Count, optimizable);
     }
 
     private bool CanStartScan()
@@ -651,6 +745,37 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             ScanResult.StartupItems[index] = updatedItem;
             NotifyStartupChanged();
+        }
+    }
+
+    [RelayCommand]
+    private async Task UninstallProgramAsync(InstalledProgramItem item)
+    {
+        if (item is null || !item.CanUninstall)
+        {
+            StatusMessage = T("Action_Uninstall_NotAvailable");
+            return;
+        }
+
+        if (!await confirmationDialogService.ConfirmAsync(
+            T("Programs_Uninstall"),
+            localizationService.GetString("Programs_UninstallConfirm", item.Name),
+            CancellationToken.None))
+        {
+            return;
+        }
+
+        try
+        {
+            var result = await installedProgramActionService.StartUninstallAsync(item, CancellationToken.None);
+            StatusMessage = LocalizeResultMessage(result.Message);
+            ActionHistoryItems = await actionHistoryService.GetHistoryAsync(CancellationToken.None);
+            OnPropertyChanged(nameof(HistoryCountText));
+            OnPropertyChanged(nameof(IsHistoryEmpty));
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = localizationService.GetString("Action_Failed", ex.Message);
         }
     }
 }
