@@ -10,7 +10,6 @@ public sealed class ScanOrchestrator(
     IStartupScanner startupScanner,
     IServiceScanner serviceScanner,
     INetworkScanner networkScanner,
-    IDefenderScanner defenderScanner,
     IRiskEngine riskEngine) : IScanOrchestrator
 {
     public async Task<ScanResult> RunScanAsync(CancellationToken cancellationToken)
@@ -20,9 +19,8 @@ public sealed class ScanOrchestrator(
         var startupTask = startupScanner.ScanAsync(cancellationToken);
         var servicesTask = serviceScanner.ScanAsync(cancellationToken);
         var networkTask = networkScanner.ScanAsync(cancellationToken);
-        var defenderTask = defenderScanner.ScanAsync(cancellationToken);
 
-        await Task.WhenAll(overviewTask, processesTask, startupTask, servicesTask, networkTask, defenderTask);
+        await Task.WhenAll(overviewTask, processesTask, startupTask, servicesTask, networkTask);
 
         var partialResult = new ScanResult
         {
@@ -32,7 +30,11 @@ public sealed class ScanOrchestrator(
             StartupItems = new ObservableCollection<StartupItem>(await startupTask),
             Services = new ObservableCollection<ServiceScanItem>(await servicesTask),
             NetworkConnections = new ObservableCollection<NetworkConnectionItem>(await networkTask),
-            DefenderStatus = await defenderTask
+            DefenderStatus = new DefenderStatus
+            {
+                IsAvailable = true,
+                StatusText = "Not checked"
+            }
         };
 
         var findings = riskEngine.Evaluate(partialResult);

@@ -57,6 +57,7 @@
   <data name="Autostart_StopProcess" xml:space="preserve"><value>İşlemi durdur</value></data>
   <data name="Autostart_OpenFileLocationShort" xml:space="preserve"><value>Explorer</value></data>
   <data name="Autostart_StartDefenderScanShort" xml:space="preserve"><value>Defender tara</value></data>
+  <data name="Autostart_QuarantineShort" xml:space="preserve"><value>Karantina</value></data>
   <data name="Security_Defender" xml:space="preserve"><value>Defender</value></data>
   <data name="Security_RealtimeProtection" xml:space="preserve"><value>Gerçek zamanlı koruma</value></data>
   <data name="Security_Antivirus" xml:space="preserve"><value>Antivirüs</value></data>
@@ -110,6 +111,7 @@
   <data name="Action_DefenderScan_Failed" xml:space="preserve"><value>Defender taraması başlatılamadı.</value></data>
   <data name="Quarantine_Intro" xml:space="preserve"><value>Guvenli bir aksiyonla aktif sistemden kaldirilan dosyalar burada gorunur.</value></data>
   <data name="Quarantine_Empty" xml:space="preserve"><value>Su anda karantinada dosya yok.</value></data>
+  <data name="Quarantine_HowTo" xml:space="preserve"><value>Tarama sonrasi suspicious olarak isaretlenen bir autostart ogesi Karantina butonu ile buraya tasinabilir.</value></data>
   <data name="History_Intro" xml:space="preserve"><value>Gecmis; baslangic degisiklikleri, islem durdurma ve Defender taramalari gibi aksiyonlari gosterir.</value></data>
   <data name="History_Empty" xml:space="preserve"><value>Henuz hicbir aksiyon calistirilmadi.</value></data>
   <data name="Reports_Intro" xml:space="preserve"><value>Raporlar tarama sonuclarini, riskleri ve onerileri HTML dosyasi olarak ozetler.</value></data>
@@ -149,6 +151,11 @@
   <data name="Autostart_StopProcessTooltip" xml:space="preserve"><value>Izin verilirse bu ogeye ait calisan islemi durdurur.</value></data>
   <data name="Autostart_OpenFileLocationTooltip" xml:space="preserve"><value>Dosyanin klasorunu Explorer'da acar.</value></data>
   <data name="Autostart_StartDefenderScanTooltip" xml:space="preserve"><value>Guvenli kontrol icin Windows Defender hizli taramasi baslatir.</value></data>
+  <data name="Autostart_QuarantineTooltip" xml:space="preserve"><value>Sadece korumali sistem klasorleri disindaki suspicious autostart dosyalarini karantinaya tasir.</value></data>
+  <data name="Action_Quarantine_Title" xml:space="preserve"><value>Karantinaya tasi</value></data>
+  <data name="Action_Quarantine_Confirm" xml:space="preserve"><value>{0} devre disi birakilip dosya karantinaya tasinsin mi?</value></data>
+  <data name="Action_Quarantine_Success" xml:space="preserve"><value>Dosya karantinaya tasindi.</value></data>
+  <data name="Action_Quarantine_Failed" xml:space="preserve"><value>Dosya karantinaya tasinamadi.</value></data>
   <data name="Dashboard_SecurityProtection" xml:space="preserve"><value>Koruma</value></data>
   <data name="Dashboard_PerformanceOptimization" xml:space="preserve"><value>Hizlandirma</value></data>
   <data name="Dashboard_ProgramsControl" xml:space="preserve"><value>Programlar</value></data>

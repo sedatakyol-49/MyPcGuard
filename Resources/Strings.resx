@@ -86,6 +86,7 @@
   <data name="History_Count" xml:space="preserve"><value>Einträge</value></data>
   <data name="Autostart_OpenFileLocationShort" xml:space="preserve"><value>Explorer</value></data>
   <data name="Autostart_StartDefenderScanShort" xml:space="preserve"><value>Defender Scan</value></data>
+  <data name="Autostart_QuarantineShort" xml:space="preserve"><value>Quarantaene</value></data>
   <data name="Status_NotScanned" xml:space="preserve"><value>Nicht gescannt</value></data>
   <data name="Status_NotChecked" xml:space="preserve"><value>Noch nicht geprüft</value></data>
   <data name="Status_Ready" xml:space="preserve"><value>Bereit. Für Prozess-, Autostart-, Dienste- und Netzwerkdaten bitte Scan starten.</value></data>
@@ -137,6 +138,7 @@
   <data name="Action_DefenderScan_Failed" xml:space="preserve"><value>Defender Scan konnte nicht gestartet werden.</value></data>
   <data name="Quarantine_Intro" xml:space="preserve"><value>Hier landen Dateien, die durch eine sichere Aktion aus dem aktiven System entfernt wurden.</value></data>
   <data name="Quarantine_Empty" xml:space="preserve"><value>Aktuell befinden sich keine Dateien in der Quarantaene.</value></data>
+  <data name="Quarantine_HowTo" xml:space="preserve"><value>Nach einem Scan kann ein als suspicious erkannter Autostart-Eintrag ueber den Button Quarantaene hierher verschoben werden.</value></data>
   <data name="History_Intro" xml:space="preserve"><value>Der Verlauf zeigt ausgefuehrte Aktionen wie Autostart-Aenderungen, Prozessstopps und Defender-Scans.</value></data>
   <data name="History_Empty" xml:space="preserve"><value>Noch keine Aktionen ausgefuehrt.</value></data>
   <data name="Reports_Intro" xml:space="preserve"><value>Berichte fassen Scan-Ergebnisse, Risiken und Empfehlungen als HTML-Datei zusammen.</value></data>
@@ -149,6 +151,11 @@
   <data name="Autostart_StopProcessTooltip" xml:space="preserve"><value>Stoppt den aktuell laufenden Prozess zu diesem Eintrag, falls erlaubt.</value></data>
   <data name="Autostart_OpenFileLocationTooltip" xml:space="preserve"><value>Oeffnet den Ordner der Datei im Explorer.</value></data>
   <data name="Autostart_StartDefenderScanTooltip" xml:space="preserve"><value>Startet einen Windows Defender Schnellscan fuer eine sichere Pruefung.</value></data>
+  <data name="Autostart_QuarantineTooltip" xml:space="preserve"><value>Verschiebt nur suspicious Autostart-Dateien ausserhalb geschuetzter Systemordner in die Quarantaene.</value></data>
+  <data name="Action_Quarantine_Title" xml:space="preserve"><value>In Quarantaene verschieben</value></data>
+  <data name="Action_Quarantine_Confirm" xml:space="preserve"><value>{0} deaktivieren und die Datei in die Quarantaene verschieben?</value></data>
+  <data name="Action_Quarantine_Success" xml:space="preserve"><value>Datei wurde in die Quarantaene verschoben.</value></data>
+  <data name="Action_Quarantine_Failed" xml:space="preserve"><value>Datei konnte nicht in die Quarantaene verschoben werden.</value></data>
   <data name="Dashboard_SecurityProtection" xml:space="preserve"><value>Schutz</value></data>
   <data name="Dashboard_PerformanceOptimization" xml:space="preserve"><value>Beschleunigen</value></data>
   <data name="Dashboard_ProgramsControl" xml:space="preserve"><value>Programme</value></data>

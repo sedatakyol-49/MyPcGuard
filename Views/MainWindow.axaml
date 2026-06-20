@@ -404,11 +404,12 @@
                                                                 ToolTip.Tip="{Binding DataContext.StartupOpenFileLocationTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 Margin="0,0,6,6"
                                                                 Padding="8,5"/>
-                                                        <Button Content="{Binding DataContext.StartupDefenderScanText, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                Command="{Binding DataContext.DefenderScanStartupCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                        <Button Content="{Binding DataContext.StartupQuarantineText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                Command="{Binding DataContext.QuarantineStartupCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 CommandParameter="{Binding}"
+                                                                IsEnabled="{Binding CanMoveToQuarantine}"
                                                                 Cursor="Hand"
-                                                                ToolTip.Tip="{Binding DataContext.StartupDefenderScanTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                ToolTip.Tip="{Binding DataContext.StartupQuarantineTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 Margin="0,0,6,6"
                                                                 Padding="8,5"/>
                                                     </WrapPanel>
@@ -528,6 +529,7 @@
                         <StackPanel Spacing="6">
                             <TextBlock Text="{Binding QuarantineIntroText}" Foreground="#475569" TextWrapping="Wrap"/>
                             <TextBlock Text="{Binding QuarantineEmptyText}" IsVisible="{Binding IsQuarantineEmpty}" Foreground="#64748B" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding QuarantineHowToText}" IsVisible="{Binding IsQuarantineEmpty}" Foreground="#64748B" TextWrapping="Wrap"/>
                         </StackPanel>
                         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto">
                             <ListBox ItemsSource="{Binding QuarantineItems}" Background="Transparent" BorderThickness="0" MinWidth="860">

@@ -27,6 +27,9 @@ public partial class MainWindowViewModel : ViewModelBase
     private readonly IInstalledProgramActionService installedProgramActionService;
     private readonly IProcessScanner processScanner;
     private bool isInitializingLanguage;
+    private bool arePassiveListsLoaded;
+    private bool areProgramsLoaded;
+    private bool areProcessesLoaded;
 
     public MainWindowViewModel(
         ISystemInfoService systemInfoService,
@@ -62,7 +65,7 @@ public partial class MainWindowViewModel : ViewModelBase
         SelectedStartupFilter = T("Filter_All");
 
         _ = LoadInitialOverviewAsync();
-        _ = LoadProductDataAsync();
+        _ = LoadPassiveListsAsync();
     }
 
     [ObservableProperty]
@@ -313,17 +316,20 @@ public partial class MainWindowViewModel : ViewModelBase
     public string StartupStopProcessText => T("Autostart_StopProcess");
     public string StartupOpenFileLocationText => T("Autostart_OpenFileLocationShort");
     public string StartupDefenderScanText => T("Autostart_StartDefenderScanShort");
+    public string StartupQuarantineText => T("Autostart_QuarantineShort");
     public string StartupActivateTooltipText => T("Autostart_ActivateTooltip");
     public string StartupDeactivateTooltipText => T("Autostart_DeactivateTooltip");
     public string StartupStopProcessTooltipText => T("Autostart_StopProcessTooltip");
     public string StartupOpenFileLocationTooltipText => T("Autostart_OpenFileLocationTooltip");
     public string StartupDefenderScanTooltipText => T("Autostart_StartDefenderScanTooltip");
+    public string StartupQuarantineTooltipText => T("Autostart_QuarantineTooltip");
     public string RealtimeProtectionText => T("Security_RealtimeProtection");
     public string AntivirusText => T("Security_Antivirus");
     public string NoteText => T("Common_Note");
     public string HistoryCountLabel => T("History_Count");
     public string QuarantineIntroText => T("Quarantine_Intro");
     public string QuarantineEmptyText => T("Quarantine_Empty");
+    public string QuarantineHowToText => T("Quarantine_HowTo");
     public string HistoryIntroText => T("History_Intro");
     public string HistoryEmptyText => T("History_Empty");
     public string ReportsIntroText => T("Reports_Intro");
@@ -493,17 +499,20 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(StartupStopProcessText));
         OnPropertyChanged(nameof(StartupOpenFileLocationText));
         OnPropertyChanged(nameof(StartupDefenderScanText));
+        OnPropertyChanged(nameof(StartupQuarantineText));
         OnPropertyChanged(nameof(StartupActivateTooltipText));
         OnPropertyChanged(nameof(StartupDeactivateTooltipText));
         OnPropertyChanged(nameof(StartupStopProcessTooltipText));
         OnPropertyChanged(nameof(StartupOpenFileLocationTooltipText));
         OnPropertyChanged(nameof(StartupDefenderScanTooltipText));
+        OnPropertyChanged(nameof(StartupQuarantineTooltipText));
         OnPropertyChanged(nameof(RealtimeProtectionText));
         OnPropertyChanged(nameof(AntivirusText));
         OnPropertyChanged(nameof(NoteText));
         OnPropertyChanged(nameof(HistoryCountLabel));
         OnPropertyChanged(nameof(QuarantineIntroText));
         OnPropertyChanged(nameof(QuarantineEmptyText));
+        OnPropertyChanged(nameof(QuarantineHowToText));
         OnPropertyChanged(nameof(HistoryIntroText));
         OnPropertyChanged(nameof(HistoryEmptyText));
         OnPropertyChanged(nameof(ReportsIntroText));
@@ -519,19 +528,27 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(UninstallTooltipText));
     }
 
-    private async Task LoadProductDataAsync()
+    private async Task LoadPassiveListsAsync()
     {
-        QuarantineItems = await quarantineService.GetItemsAsync(CancellationToken.None);
-        ActionHistoryItems = await actionHistoryService.GetHistoryAsync(CancellationToken.None);
-        InstalledPrograms = await installedProgramScanner.ScanAsync(CancellationToken.None);
-        LiveProcesses = new ObservableCollection<ProcessScanItem>(await processScanner.ScanAsync(CancellationToken.None));
-        OnPropertyChanged(nameof(QuarantineCountText));
-        OnPropertyChanged(nameof(HistoryCountText));
-        OnPropertyChanged(nameof(ProgramsCountText));
-        OnPropertyChanged(nameof(DashboardProgramsSummaryText));
-        OnPropertyChanged(nameof(IsProcessesEmpty));
-        OnPropertyChanged(nameof(IsQuarantineEmpty));
-        OnPropertyChanged(nameof(IsHistoryEmpty));
+        if (arePassiveListsLoaded)
+        {
+            return;
+        }
+
+        try
+        {
+            QuarantineItems = await quarantineService.GetItemsAsync(CancellationToken.None);
+            ActionHistoryItems = await actionHistoryService.GetHistoryAsync(CancellationToken.None);
+            arePassiveListsLoaded = true;
+            OnPropertyChanged(nameof(QuarantineCountText));
+            OnPropertyChanged(nameof(HistoryCountText));
+            OnPropertyChanged(nameof(IsQuarantineEmpty));
+            OnPropertyChanged(nameof(IsHistoryEmpty));
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = localizationService.GetString("Action_Failed", ex.Message);
+        }
     }
 
     private async Task LoadInitialOverviewAsync()
@@ -553,6 +570,39 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             Overview = value.Overview;
             NotifyStartupChanged();
+        }
+    }
+
+    partial void OnSelectedSectionIndexChanged(int value)
+    {
+        _ = LoadSectionDataAsync(value);
+    }
+
+    private async Task LoadSectionDataAsync(int sectionIndex)
+    {
+        try
+        {
+            if (sectionIndex == 2 && !areProcessesLoaded)
+            {
+                areProcessesLoaded = true;
+                LiveProcesses = new ObservableCollection<ProcessScanItem>(await processScanner.ScanAsync(CancellationToken.None));
+            }
+            else if (sectionIndex == 3 && !areProgramsLoaded)
+            {
+                areProgramsLoaded = true;
+                InstalledPrograms = await installedProgramScanner.ScanAsync(CancellationToken.None);
+                OnPropertyChanged(nameof(ProgramsCountText));
+                OnPropertyChanged(nameof(DashboardProgramsSummaryText));
+            }
+            else if (sectionIndex is 5 or 6)
+            {
+                arePassiveListsLoaded = false;
+                await LoadPassiveListsAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = localizationService.GetString("Action_Failed", ex.Message);
         }
     }
 
@@ -694,6 +744,49 @@ public partial class MainWindowViewModel : ViewModelBase
             T("Action_DefenderScan_Title"),
             T("Action_DefenderScan_Confirm"),
             autostartActionService.StartDefenderQuickScanAsync);
+    }
+
+    [RelayCommand]
+    private async Task QuarantineStartupAsync(StartupItem item)
+    {
+        if (item is null || !item.CanMoveToQuarantine)
+        {
+            StatusMessage = T("Action_NotAllowed");
+            return;
+        }
+
+        if (!await confirmationDialogService.ConfirmAsync(
+            T("Action_Quarantine_Title"),
+            localizationService.GetString("Action_Quarantine_Confirm", item.Name),
+            CancellationToken.None))
+        {
+            return;
+        }
+
+        try
+        {
+            var disableResult = item.IsEnabled && item.CanDisable
+                ? await autostartActionService.DisableAsync(item, CancellationToken.None)
+                : null;
+
+            if (disableResult is not null && !disableResult.Success)
+            {
+                StatusMessage = LocalizeResultMessage(disableResult.Message);
+                return;
+            }
+
+            var result = await quarantineService.MoveToQuarantineAsync(item.ExecutablePath, item.Recommendation, CancellationToken.None);
+            StatusMessage = LocalizeResultMessage(result.Message);
+            QuarantineItems = await quarantineService.GetItemsAsync(CancellationToken.None);
+            OnPropertyChanged(nameof(QuarantineCountText));
+            OnPropertyChanged(nameof(IsQuarantineEmpty));
+
+            ScanResult = await scanOrchestrator.RunScanAsync(CancellationToken.None);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = localizationService.GetString("Action_Failed", ex.Message);
+        }
     }
 
     private async Task ExecuteStartupActionAsync(

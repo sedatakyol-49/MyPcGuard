@@ -20,6 +20,10 @@ public sealed record StartupItem
     public bool CanDisable { get; init; }
     public bool CanEnable { get; init; }
     public bool CanStopProcess { get; init; }
+    public bool CanMoveToQuarantine => StartupClassification == StartupClassification.Suspicious
+        && !string.IsNullOrWhiteSpace(ExecutablePath)
+        && File.Exists(ExecutablePath)
+        && !IsProtectedExecutablePath(ExecutablePath);
     public string SafetyMessage { get; init; } = string.Empty;
 
     public string Location => string.IsNullOrWhiteSpace(RegistryHive) || string.IsNullOrWhiteSpace(RegistryKeyPath)
@@ -27,4 +31,17 @@ public sealed record StartupItem
         : $@"{RegistryHive}\{RegistryKeyPath}";
     public string StatusText => IsEnabled ? "Aktiv" : "Deaktiviert";
     public string RunningText => IsCurrentlyRunning ? "Ja" : "Nein";
+
+    private static bool IsProtectedExecutablePath(string path)
+    {
+        return IsUnderFolder(path, Environment.GetFolderPath(Environment.SpecialFolder.Windows))
+            || IsUnderFolder(path, Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles))
+            || IsUnderFolder(path, Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
+    }
+
+    private static bool IsUnderFolder(string path, string folder)
+    {
+        return !string.IsNullOrWhiteSpace(folder)
+            && path.StartsWith(folder, StringComparison.OrdinalIgnoreCase);
+    }
 }
