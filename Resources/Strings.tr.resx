@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Subtitle" xml:space="preserve"><value>PC Sağlık ve Güvenlik</value></data>
+  <data name="Nav_Dashboard" xml:space="preserve"><value>Panel</value></data>
+  <data name="Nav_Autostart" xml:space="preserve"><value>Başlangıç</value></data>
+  <data name="Nav_Processes" xml:space="preserve"><value>İşlemler</value></data>
+  <data name="Nav_Security" xml:space="preserve"><value>Güvenlik</value></data>
+  <data name="Nav_Quarantine" xml:space="preserve"><value>Karantina</value></data>
+  <data name="Nav_History" xml:space="preserve"><value>Geçmiş</value></data>
+  <data name="Nav_Reports" xml:space="preserve"><value>Raporlar</value></data>
+  <data name="Nav_Settings" xml:space="preserve"><value>Ayarlar</value></data>
+  <data name="Dashboard_StartScan" xml:space="preserve"><value>Taramayı başlat</value></data>
+  <data name="Dashboard_ExportReport" xml:space="preserve"><value>Raporu dışa aktar</value></data>
+  <data name="Common_Recommendation" xml:space="preserve"><value>Öneri</value></data>
+  <data name="Settings_PrivacyLocalAnalysis" xml:space="preserve"><value>Tüm analizler bu cihazda yerel olarak çalışır.</value></data>
+  <data name="Settings_PrivacyNoAutomaticUpload" xml:space="preserve"><value>Hiçbir dosya otomatik olarak yüklenmez.</value></data>
+  <data name="Settings_PrivacyOptionalHashCheck" xml:space="preserve"><value>İsteğe bağlı çevrimiçi kontroller yalnızca dosya hash değerlerini kullanır.</value></data>
+  <data name="Settings_LanguageChanged" xml:space="preserve"><value>Dil değiştirildi. Tüm metinlerin güncellenmesi için lütfen uygulamayı yeniden başlatın.</value></data>
+  <data name="Disclaimer_NotAntivirus" xml:space="preserve"><value>MyPcGuard antivirüs yazılımının yerine geçmez.</value></data>
+  <data name="Action_RequiresAdmin" xml:space="preserve"><value>Bu işlem için yönetici yetkisi gereklidir.</value></data>
+  <data name="Action_NotSupported" xml:space="preserve"><value>Bu aksiyon bu platformda henüz desteklenmiyor.</value></data>
+  <data name="Sidebar_Sections" xml:space="preserve"><value>Bölümler</value></data>
+  <data name="Sidebar_LocalAnalysis" xml:space="preserve"><value>Yerel analiz</value></data>
+  <data name="Sidebar_NoFilesChanged" xml:space="preserve"><value>Hiçbir dosya değiştirilmez</value></data>
+  <data name="Dashboard_StartScanSubtitle" xml:space="preserve"><value>Sistemi şimdi kontrol et</value></data>
+  <data name="Dashboard_ExportReportSubtitle" xml:space="preserve"><value>HTML raporu kaydet</value></data>
+  <data name="Dashboard_OS" xml:space="preserve"><value>OS</value></data>
+  <data name="Dashboard_CpuUsage" xml:space="preserve"><value>CPU kullanımı</value></data>
+  <data name="Dashboard_RamUsage" xml:space="preserve"><value>RAM kullanımı</value></data>
+  <data name="Dashboard_DiskUsage" xml:space="preserve"><value>Disk kullanımı</value></data>
+  <data name="Dashboard_FindingsCount" xml:space="preserve"><value>Bulgular</value></data>
+  <data name="Dashboard_OperatingSystem" xml:space="preserve"><value>İşletim sistemi</value></data>
+  <data name="Findings_RiskFilter" xml:space="preserve"><value>Risk filtresi</value></data>
+  <data name="Common_Risk" xml:space="preserve"><value>Risk</value></data>
+  <data name="Common_Category" xml:space="preserve"><value>Kategori</value></data>
+  <data name="Common_Name" xml:space="preserve"><value>Ad</value></data>
+  <data name="Common_Path" xml:space="preserve"><value>Yol</value></data>
+  <data name="Common_Publisher" xml:space="preserve"><value>Yayıncı</value></data>
+  <data name="Common_Status" xml:space="preserve"><value>Durum</value></data>
+  <data name="Common_Actions" xml:space="preserve"><value>Aksiyonlar</value></data>
+  <data name="Common_Running" xml:space="preserve"><value>Çalışıyor</value></data>
+  <data name="Common_Filter" xml:space="preserve"><value>Filtre</value></data>
+  <data name="Common_Reason" xml:space="preserve"><value>Sebep</value></data>
+  <data name="Common_Note" xml:space="preserve"><value>Not</value></data>
+  <data name="Autostart_Total" xml:space="preserve"><value>Toplam</value></data>
+  <data name="Autostart_Active" xml:space="preserve"><value>Aktif</value></data>
+  <data name="Autostart_Disabled" xml:space="preserve"><value>Devre dışı</value></data>
+  <data name="Autostart_Optional" xml:space="preserve"><value>İsteğe bağlı</value></data>
+  <data name="Autostart_Suspicious" xml:space="preserve"><value>Şüpheli</value></data>
+  <data name="Autostart_SystemCritical" xml:space="preserve"><value>Sistem kritik</value></data>
+  <data name="Autostart_Activate" xml:space="preserve"><value>Etkinleştir</value></data>
+  <data name="Autostart_Deactivate" xml:space="preserve"><value>Devre dışı bırak</value></data>
+  <data name="Autostart_StopProcess" xml:space="preserve"><value>İşlemi durdur</value></data>
+  <data name="Autostart_OpenFileLocationShort" xml:space="preserve"><value>Explorer</value></data>
+  <data name="Autostart_StartDefenderScanShort" xml:space="preserve"><value>Defender tara</value></data>
+  <data name="Security_Defender" xml:space="preserve"><value>Defender</value></data>
+  <data name="Security_RealtimeProtection" xml:space="preserve"><value>Gerçek zamanlı koruma</value></data>
+  <data name="Security_Antivirus" xml:space="preserve"><value>Antivirüs</value></data>
+  <data name="History_Count" xml:space="preserve"><value>Kayıtlar</value></data>
+  <data name="Status_Ready" xml:space="preserve"><value>Hazır. İşlem, başlangıç, servis ve ağ verileri için tarama başlatın.</value></data>
+  <data name="Status_SystemValuesFailed" xml:space="preserve"><value>Sistem değerleri yüklenemedi: {0}</value></data>
+  <data name="Status_ScanRunning" xml:space="preserve"><value>Tarama çalışıyor...</value></data>
+  <data name="Status_ScanCompleted" xml:space="preserve"><value>Tarama tamamlandı: {0} bulgu bulundu.</value></data>
+  <data name="Status_ScanCanceled" xml:space="preserve"><value>Tarama iptal edildi.</value></data>
+  <data name="Status_ScanFailed" xml:space="preserve"><value>Tarama başarısız: {0}</value></data>
+  <data name="Status_StartScanFirst" xml:space="preserve"><value>Lütfen önce bir tarama başlatın.</value></data>
+  <data name="Reports_ReportCreated" xml:space="preserve"><value>Rapor dışa aktarıldı: {0}</value></data>
+  <data name="Reports_ReportFailed" xml:space="preserve"><value>Dışa aktarma başarısız: {0}</value></data>
+  <data name="Action_EnableStartup_Title" xml:space="preserve"><value>Başlangıç öğesini etkinleştir</value></data>
+  <data name="Action_EnableStartup_Confirm" xml:space="preserve"><value>'{0}' başlangıçta tekrar etkinleştirilsin mi?</value></data>
+  <data name="Action_DisableStartup_Title" xml:space="preserve"><value>Başlangıç öğesini devre dışı bırak</value></data>
+  <data name="Action_DisableStartup_Confirm" xml:space="preserve"><value>'{0}' başlangıçtan devre dışı bırakılsın mı? Bir yedek oluşturulacak.</value></data>
+  <data name="Action_StopProcess_Title" xml:space="preserve"><value>İşlemi durdur</value></data>
+  <data name="Action_StopProcess_Confirm" xml:space="preserve"><value>'{0}' için çalışan işlemler durdurulsun mu?</value></data>
+  <data name="Action_OpenLocation_Title" xml:space="preserve"><value>Dosya konumunu aç</value></data>
+  <data name="Action_OpenLocation_Confirm" xml:space="preserve"><value>'{0}' için dosya konumu açılsın mı?</value></data>
+  <data name="Action_DefenderScan_Title" xml:space="preserve"><value>Defender hızlı tarama</value></data>
+  <data name="Action_DefenderScan_Confirm" xml:space="preserve"><value>Windows Defender hızlı taraması başlatılsın mı?</value></data>
+  <data name="Action_Failed" xml:space="preserve"><value>Aksiyon başarısız: {0}</value></data>
+  <data name="Risk_Info" xml:space="preserve"><value>Bilgi</value></data>
+  <data name="Risk_Low" xml:space="preserve"><value>Düşük</value></data>
+  <data name="Risk_Medium" xml:space="preserve"><value>Orta</value></data>
+  <data name="Risk_High" xml:space="preserve"><value>Yüksek</value></data>
+  <data name="Risk_Critical" xml:space="preserve"><value>Kritik</value></data>
+  <data name="Filter_All" xml:space="preserve"><value>Tümü</value></data>
+  <data name="Filter_Active" xml:space="preserve"><value>Aktif</value></data>
+  <data name="Filter_Disabled" xml:space="preserve"><value>Devre dışı</value></data>
+  <data name="Autostart_Unnecessary" xml:space="preserve"><value>Gereksiz</value></data>
+  <data name="Autostart_Unknown" xml:space="preserve"><value>Bilinmiyor</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>İptal</value></data>
+  <data name="Common_Confirm" xml:space="preserve"><value>Onayla</value></data>
+  <data name="Action_EnableStartup_NoBackup" xml:space="preserve"><value>Bu başlangıç öğesi için yedek bulunamadı.</value></data>
+  <data name="Action_RegistryOpenFailed" xml:space="preserve"><value>Registry anahtarı açılamadı.</value></data>
+  <data name="Action_ActivateStartup_Success" xml:space="preserve"><value>Başlangıç öğesi etkinleştirildi.</value></data>
+  <data name="Action_ActivateStartup_Failed" xml:space="preserve"><value>Etkinleştirme başarısız.</value></data>
+  <data name="Action_DeactivateStartup_Success" xml:space="preserve"><value>Başlangıç öğesi devre dışı bırakıldı. Yeniden tarama önerilir.</value></data>
+  <data name="Action_DeactivateStartup_Failed" xml:space="preserve"><value>Devre dışı bırakma başarısız.</value></data>
+  <data name="Action_StopProcess_NotRunning" xml:space="preserve"><value>Çalışan bir işlem bulunamadı.</value></data>
+  <data name="Action_StopProcess_Success" xml:space="preserve"><value>İlgili işlemler durduruldu. Yeniden tarama önerilir.</value></data>
+  <data name="Action_StopProcess_AccessDenied" xml:space="preserve"><value>Erişim reddedildi. İşlem durdurulamıyor.</value></data>
+  <data name="Action_StopProcess_Failed" xml:space="preserve"><value>İşlemi durdurma başarısız.</value></data>
+  <data name="Action_FileNotFound" xml:space="preserve"><value>Dosya bulunamadı.</value></data>
+  <data name="Action_OpenLocation_Success" xml:space="preserve"><value>Explorer açıldı.</value></data>
+  <data name="Action_OpenLocation_Failed" xml:space="preserve"><value>Explorer açılamadı.</value></data>
+  <data name="Action_DefenderScan_Success" xml:space="preserve"><value>Defender hızlı taraması başlatıldı.</value></data>
+  <data name="Action_DefenderScan_Failed" xml:space="preserve"><value>Defender taraması başlatılamadı.</value></data>
+  <data name="Quarantine_Intro" xml:space="preserve"><value>Guvenli bir aksiyonla aktif sistemden kaldirilan dosyalar burada gorunur.</value></data>
+  <data name="Quarantine_Empty" xml:space="preserve"><value>Su anda karantinada dosya yok.</value></data>
+  <data name="History_Intro" xml:space="preserve"><value>Gecmis; baslangic degisiklikleri, islem durdurma ve Defender taramalari gibi aksiyonlari gosterir.</value></data>
+  <data name="History_Empty" xml:space="preserve"><value>Henuz hicbir aksiyon calistirilmadi.</value></data>
+  <data name="Reports_Intro" xml:space="preserve"><value>Raporlar tarama sonuclarini, riskleri ve onerileri HTML dosyasi olarak ozetler.</value></data>
+  <data name="Reports_Empty" xml:space="preserve"><value>Once bir tarama baslat, sonra rapor disa aktarilabilir.</value></data>
+  <data name="Settings_Intro" xml:space="preserve"><value>Dil, gizlilik ve yerel uygulama ayarlarini buradan yonetebilirsin.</value></data>
+  <data name="Settings_LanguageHint" xml:space="preserve"><value>Arayuzde kullanilacak dili sec.</value></data>
+  <data name="App_Title" xml:space="preserve"><value>MyPcGuard</value></data>
+  <data name="Dashboard_TotalStatus" xml:space="preserve"><value>Genel durum</value></data>
+  <data name="Dashboard_StartupLoad" xml:space="preserve"><value>Baslangic yuku</value></data>
+  <data name="Dashboard_SuspiciousItems" xml:space="preserve"><value>Supheli ogeler</value></data>
+  <data name="Dashboard_OptimizationPossible" xml:space="preserve"><value>Optimizasyon mumkun</value></data>
+  <data name="Dashboard_DefenderStatus" xml:space="preserve"><value>Defender durumu</value></data>
+  <data name="Dashboard_LastScan" xml:space="preserve"><value>Son tarama</value></data>
+  <data name="Risk_Good" xml:space="preserve"><value>Durum iyi gorunuyor</value></data>
+  <data name="Risk_AttentionRequired" xml:space="preserve"><value>Dikkat gerekiyor</value></data>
+  <data name="Risk_CriticalCheckRecommended" xml:space="preserve"><value>Kritik kontrol onerilir</value></data>
+  <data name="Common_Success" xml:space="preserve"><value>Basarili</value></data>
+  <data name="Common_Error" xml:space="preserve"><value>Hata</value></data>
+  <data name="Autostart_OpenFileLocation" xml:space="preserve"><value>Explorer'da ac</value></data>
+  <data name="Autostart_StartDefenderScan" xml:space="preserve"><value>Defender taramasi baslat</value></data>
+  <data name="Autostart_CopyPathHint" xml:space="preserve"><value>Yolu secip Ctrl+C ile kopyalayabilirsin.</value></data>
+  <data name="Security_QuickScan" xml:space="preserve"><value>Hizli tarama</value></data>
+  <data name="Security_FullScan" xml:space="preserve"><value>Tam tarama</value></data>
+  <data name="Security_OpenWindowsSecurity" xml:space="preserve"><value>Windows Guvenligi'ni ac</value></data>
+  <data name="Quarantine_Title" xml:space="preserve"><value>Karantina</value></data>
+  <data name="Quarantine_Restore" xml:space="preserve"><value>Geri yukle</value></data>
+  <data name="Reports_Title" xml:space="preserve"><value>Raporlar</value></data>
+  <data name="Reports_CreateHtmlReport" xml:space="preserve"><value>HTML raporu olustur</value></data>
+  <data name="Settings_Title" xml:space="preserve"><value>Ayarlar</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Dil</value></data>
+  <data name="Settings_Privacy" xml:space="preserve"><value>Gizlilik</value></data>
+  <data name="Action_NotAllowed" xml:space="preserve"><value>Bu oge icin bu aksiyona izin verilmiyor.</value></data>
+  <data name="Status_NotScanned" xml:space="preserve"><value>Taranmadi</value></data>
+  <data name="Status_NotChecked" xml:space="preserve"><value>Kontrol edilmedi</value></data>
+  <data name="Autostart_ActivateTooltip" xml:space="preserve"><value>Bu baslangic ogesini yeniden etkinlestirir.</value></data>
+  <data name="Autostart_DeactivateTooltip" xml:space="preserve"><value>Dosyayi silmeden bu baslangic ogesini devre disi birakir.</value></data>
+  <data name="Autostart_StopProcessTooltip" xml:space="preserve"><value>Izin verilirse bu ogeye ait calisan islemi durdurur.</value></data>
+  <data name="Autostart_OpenFileLocationTooltip" xml:space="preserve"><value>Dosyanin klasorunu Explorer'da acar.</value></data>
+  <data name="Autostart_StartDefenderScanTooltip" xml:space="preserve"><value>Guvenli kontrol icin Windows Defender hizli taramasi baslatir.</value></data>
+</root>

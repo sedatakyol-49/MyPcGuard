@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Title" xml:space="preserve"><value>MyPcGuard</value></data>
+  <data name="App_Subtitle" xml:space="preserve"><value>PC Health &amp; Security</value></data>
+  <data name="Nav_Dashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Nav_Autostart" xml:space="preserve"><value>Autostart</value></data>
+  <data name="Nav_Processes" xml:space="preserve"><value>Prozesse</value></data>
+  <data name="Nav_Security" xml:space="preserve"><value>Sicherheit</value></data>
+  <data name="Nav_Quarantine" xml:space="preserve"><value>Quarantäne</value></data>
+  <data name="Nav_History" xml:space="preserve"><value>Verlauf</value></data>
+  <data name="Nav_Reports" xml:space="preserve"><value>Berichte</value></data>
+  <data name="Nav_Settings" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Dashboard_TotalStatus" xml:space="preserve"><value>Gesamtstatus</value></data>
+  <data name="Dashboard_StartupLoad" xml:space="preserve"><value>Startlast</value></data>
+  <data name="Dashboard_SuspiciousItems" xml:space="preserve"><value>Verdächtige Elemente</value></data>
+  <data name="Dashboard_OptimizationPossible" xml:space="preserve"><value>Optimierung möglich</value></data>
+  <data name="Dashboard_DefenderStatus" xml:space="preserve"><value>Defender Status</value></data>
+  <data name="Dashboard_LastScan" xml:space="preserve"><value>Letzter Scan</value></data>
+  <data name="Dashboard_StartScan" xml:space="preserve"><value>Scan starten</value></data>
+  <data name="Dashboard_ExportReport" xml:space="preserve"><value>Bericht exportieren</value></data>
+  <data name="Risk_Good" xml:space="preserve"><value>Gut</value></data>
+  <data name="Risk_AttentionRequired" xml:space="preserve"><value>Aufmerksamkeit erforderlich</value></data>
+  <data name="Risk_CriticalCheckRecommended" xml:space="preserve"><value>Kritische Prüfung empfohlen</value></data>
+  <data name="Common_Risk" xml:space="preserve"><value>Risiko</value></data>
+  <data name="Common_Category" xml:space="preserve"><value>Kategorie</value></data>
+  <data name="Common_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Common_Path" xml:space="preserve"><value>Pfad</value></data>
+  <data name="Common_Publisher" xml:space="preserve"><value>Publisher</value></data>
+  <data name="Common_Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Common_Recommendation" xml:space="preserve"><value>Empfehlung</value></data>
+  <data name="Common_Actions" xml:space="preserve"><value>Aktionen</value></data>
+  <data name="Common_Running" xml:space="preserve"><value>Läuft</value></data>
+  <data name="Common_Filter" xml:space="preserve"><value>Filter</value></data>
+  <data name="Common_Success" xml:space="preserve"><value>Erfolgreich abgeschlossen.</value></data>
+  <data name="Common_Error" xml:space="preserve"><value>Die Aktion konnte nicht abgeschlossen werden.</value></data>
+  <data name="Autostart_Total" xml:space="preserve"><value>Gesamt</value></data>
+  <data name="Autostart_Active" xml:space="preserve"><value>Aktiv</value></data>
+  <data name="Autostart_Disabled" xml:space="preserve"><value>Deaktiviert</value></data>
+  <data name="Autostart_Optional" xml:space="preserve"><value>Optional</value></data>
+  <data name="Autostart_Suspicious" xml:space="preserve"><value>Verdächtig</value></data>
+  <data name="Autostart_SystemCritical" xml:space="preserve"><value>Systemkritisch</value></data>
+  <data name="Autostart_Deactivate" xml:space="preserve"><value>Deaktivieren</value></data>
+  <data name="Autostart_Activate" xml:space="preserve"><value>Aktivieren</value></data>
+  <data name="Autostart_StopProcess" xml:space="preserve"><value>Prozess stoppen</value></data>
+  <data name="Autostart_OpenFileLocation" xml:space="preserve"><value>Im Explorer öffnen</value></data>
+  <data name="Autostart_StartDefenderScan" xml:space="preserve"><value>Defender-Scan starten</value></data>
+  <data name="Security_Defender" xml:space="preserve"><value>Windows Defender</value></data>
+  <data name="Security_QuickScan" xml:space="preserve"><value>Schnellscan starten</value></data>
+  <data name="Security_FullScan" xml:space="preserve"><value>Vollständigen Scan starten</value></data>
+  <data name="Security_OpenWindowsSecurity" xml:space="preserve"><value>Windows-Sicherheit öffnen</value></data>
+  <data name="Quarantine_Title" xml:space="preserve"><value>Quarantäne</value></data>
+  <data name="Quarantine_Restore" xml:space="preserve"><value>Wiederherstellen</value></data>
+  <data name="Reports_Title" xml:space="preserve"><value>Berichte</value></data>
+  <data name="Reports_CreateHtmlReport" xml:space="preserve"><value>HTML-Bericht erstellen</value></data>
+  <data name="Settings_Title" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Sprache</value></data>
+  <data name="Settings_Privacy" xml:space="preserve"><value>Datenschutz</value></data>
+  <data name="Settings_PrivacyLocalAnalysis" xml:space="preserve"><value>Alle Analysen laufen lokal auf diesem Gerät.</value></data>
+  <data name="Settings_PrivacyNoAutomaticUpload" xml:space="preserve"><value>Es werden keine Dateien automatisch hochgeladen.</value></data>
+  <data name="Settings_PrivacyOptionalHashCheck" xml:space="preserve"><value>Optionale Online-Prüfungen verwenden nur Datei-Hashes.</value></data>
+  <data name="Settings_LanguageChanged" xml:space="preserve"><value>Die Sprache wurde geändert. Bitte starten Sie die Anwendung neu, damit alle Texte aktualisiert werden.</value></data>
+  <data name="Disclaimer_NotAntivirus" xml:space="preserve"><value>MyPcGuard ersetzt keine Antivirensoftware.</value></data>
+  <data name="Action_RequiresAdmin" xml:space="preserve"><value>Für diese Aktion sind Administratorrechte erforderlich.</value></data>
+  <data name="Action_NotAllowed" xml:space="preserve"><value>Diese Aktion ist aus Sicherheitsgründen nicht erlaubt.</value></data>
+  <data name="Action_NotSupported" xml:space="preserve"><value>Diese Aktion wird auf dieser Plattform noch nicht unterstützt.</value></data>
+  <data name="Sidebar_Sections" xml:space="preserve"><value>Bereiche</value></data>
+  <data name="Sidebar_LocalAnalysis" xml:space="preserve"><value>Lokale Analyse</value></data>
+  <data name="Sidebar_NoFilesChanged" xml:space="preserve"><value>Keine Dateien werden verändert</value></data>
+  <data name="Dashboard_StartScanSubtitle" xml:space="preserve"><value>System jetzt prüfen</value></data>
+  <data name="Dashboard_ExportReportSubtitle" xml:space="preserve"><value>HTML-Report speichern</value></data>
+  <data name="Dashboard_OS" xml:space="preserve"><value>OS</value></data>
+  <data name="Dashboard_CpuUsage" xml:space="preserve"><value>CPU-Auslastung</value></data>
+  <data name="Dashboard_RamUsage" xml:space="preserve"><value>RAM-Auslastung</value></data>
+  <data name="Dashboard_DiskUsage" xml:space="preserve"><value>Datenträger</value></data>
+  <data name="Dashboard_FindingsCount" xml:space="preserve"><value>Findings</value></data>
+  <data name="Dashboard_OperatingSystem" xml:space="preserve"><value>Betriebssystem</value></data>
+  <data name="Findings_RiskFilter" xml:space="preserve"><value>Risiko-Filter</value></data>
+  <data name="Common_Reason" xml:space="preserve"><value>Grund</value></data>
+  <data name="Common_Note" xml:space="preserve"><value>Hinweis</value></data>
+  <data name="Security_RealtimeProtection" xml:space="preserve"><value>Echtzeitschutz</value></data>
+  <data name="Security_Antivirus" xml:space="preserve"><value>Virenschutz</value></data>
+  <data name="History_Count" xml:space="preserve"><value>Einträge</value></data>
+  <data name="Autostart_OpenFileLocationShort" xml:space="preserve"><value>Explorer</value></data>
+  <data name="Autostart_StartDefenderScanShort" xml:space="preserve"><value>Defender Scan</value></data>
+  <data name="Status_NotScanned" xml:space="preserve"><value>Nicht gescannt</value></data>
+  <data name="Status_NotChecked" xml:space="preserve"><value>Noch nicht geprüft</value></data>
+  <data name="Status_Ready" xml:space="preserve"><value>Bereit. Für Prozess-, Autostart-, Dienste- und Netzwerkdaten bitte Scan starten.</value></data>
+  <data name="Status_SystemValuesFailed" xml:space="preserve"><value>Systemwerte konnten nicht geladen werden: {0}</value></data>
+  <data name="Status_ScanRunning" xml:space="preserve"><value>Scan läuft...</value></data>
+  <data name="Status_ScanCompleted" xml:space="preserve"><value>Scan abgeschlossen: {0} Findings gefunden.</value></data>
+  <data name="Status_ScanCanceled" xml:space="preserve"><value>Scan abgebrochen.</value></data>
+  <data name="Status_ScanFailed" xml:space="preserve"><value>Scan fehlgeschlagen: {0}</value></data>
+  <data name="Status_StartScanFirst" xml:space="preserve"><value>Bitte zuerst einen Scan starten.</value></data>
+  <data name="Reports_ReportCreated" xml:space="preserve"><value>Bericht exportiert: {0}</value></data>
+  <data name="Reports_ReportFailed" xml:space="preserve"><value>Export fehlgeschlagen: {0}</value></data>
+  <data name="Action_EnableStartup_Title" xml:space="preserve"><value>Autostart aktivieren</value></data>
+  <data name="Action_EnableStartup_Confirm" xml:space="preserve"><value>Soll '{0}' wieder beim Start aktiviert werden?</value></data>
+  <data name="Action_DisableStartup_Title" xml:space="preserve"><value>Autostart deaktivieren</value></data>
+  <data name="Action_DisableStartup_Confirm" xml:space="preserve"><value>Soll '{0}' aus dem Start deaktiviert werden? Es wird ein Backup angelegt.</value></data>
+  <data name="Action_StopProcess_Title" xml:space="preserve"><value>Prozess stoppen</value></data>
+  <data name="Action_StopProcess_Confirm" xml:space="preserve"><value>Sollen die laufenden Prozesse für '{0}' gestoppt werden?</value></data>
+  <data name="Action_OpenLocation_Title" xml:space="preserve"><value>Im Explorer öffnen</value></data>
+  <data name="Action_OpenLocation_Confirm" xml:space="preserve"><value>Soll der Speicherort von '{0}' geöffnet werden?</value></data>
+  <data name="Action_DefenderScan_Title" xml:space="preserve"><value>Defender Schnellscan</value></data>
+  <data name="Action_DefenderScan_Confirm" xml:space="preserve"><value>Soll ein Windows Defender Schnellscan gestartet werden?</value></data>
+  <data name="Action_Failed" xml:space="preserve"><value>Aktion fehlgeschlagen: {0}</value></data>
+  <data name="Risk_Info" xml:space="preserve"><value>Info</value></data>
+  <data name="Risk_Low" xml:space="preserve"><value>Niedrig</value></data>
+  <data name="Risk_Medium" xml:space="preserve"><value>Mittel</value></data>
+  <data name="Risk_High" xml:space="preserve"><value>Hoch</value></data>
+  <data name="Risk_Critical" xml:space="preserve"><value>Kritisch</value></data>
+  <data name="Filter_All" xml:space="preserve"><value>Alle</value></data>
+  <data name="Filter_Active" xml:space="preserve"><value>Aktiv</value></data>
+  <data name="Filter_Disabled" xml:space="preserve"><value>Deaktiviert</value></data>
+  <data name="Autostart_Unnecessary" xml:space="preserve"><value>Unnötig</value></data>
+  <data name="Autostart_Unknown" xml:space="preserve"><value>Unbekannt</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Common_Confirm" xml:space="preserve"><value>Bestätigen</value></data>
+  <data name="Action_EnableStartup_NoBackup" xml:space="preserve"><value>Kein Backup für diesen Autostart-Eintrag gefunden.</value></data>
+  <data name="Action_RegistryOpenFailed" xml:space="preserve"><value>Registry Key konnte nicht geöffnet werden.</value></data>
+  <data name="Action_ActivateStartup_Success" xml:space="preserve"><value>Autostart-Eintrag wurde aktiviert.</value></data>
+  <data name="Action_ActivateStartup_Failed" xml:space="preserve"><value>Aktivieren fehlgeschlagen.</value></data>
+  <data name="Action_DeactivateStartup_Success" xml:space="preserve"><value>Autostart-Eintrag wurde deaktiviert. Scan erneut starten empfohlen.</value></data>
+  <data name="Action_DeactivateStartup_Failed" xml:space="preserve"><value>Deaktivieren fehlgeschlagen.</value></data>
+  <data name="Action_StopProcess_NotRunning" xml:space="preserve"><value>Es wurde kein laufender Prozess gefunden.</value></data>
+  <data name="Action_StopProcess_Success" xml:space="preserve"><value>Zugehörige Prozesse wurden gestoppt. Scan erneut starten empfohlen.</value></data>
+  <data name="Action_StopProcess_AccessDenied" xml:space="preserve"><value>Zugriff verweigert. Der Prozess kann nicht gestoppt werden.</value></data>
+  <data name="Action_StopProcess_Failed" xml:space="preserve"><value>Prozess stoppen fehlgeschlagen.</value></data>
+  <data name="Action_FileNotFound" xml:space="preserve"><value>Datei wurde nicht gefunden.</value></data>
+  <data name="Action_OpenLocation_Success" xml:space="preserve"><value>Explorer wurde geöffnet.</value></data>
+  <data name="Action_OpenLocation_Failed" xml:space="preserve"><value>Explorer konnte nicht geöffnet werden.</value></data>
+  <data name="Action_DefenderScan_Success" xml:space="preserve"><value>Defender Schnellscan wurde gestartet.</value></data>
+  <data name="Action_DefenderScan_Failed" xml:space="preserve"><value>Defender Scan konnte nicht gestartet werden.</value></data>
+  <data name="Quarantine_Intro" xml:space="preserve"><value>Hier landen Dateien, die durch eine sichere Aktion aus dem aktiven System entfernt wurden.</value></data>
+  <data name="Quarantine_Empty" xml:space="preserve"><value>Aktuell befinden sich keine Dateien in der Quarantaene.</value></data>
+  <data name="History_Intro" xml:space="preserve"><value>Der Verlauf zeigt ausgefuehrte Aktionen wie Autostart-Aenderungen, Prozessstopps und Defender-Scans.</value></data>
+  <data name="History_Empty" xml:space="preserve"><value>Noch keine Aktionen ausgefuehrt.</value></data>
+  <data name="Reports_Intro" xml:space="preserve"><value>Berichte fassen Scan-Ergebnisse, Risiken und Empfehlungen als HTML-Datei zusammen.</value></data>
+  <data name="Reports_Empty" xml:space="preserve"><value>Starte zuerst einen Scan, danach kann ein Bericht exportiert werden.</value></data>
+  <data name="Settings_Intro" xml:space="preserve"><value>Hier steuerst du Sprache, Datenschutz und lokale Programmeinstellungen.</value></data>
+  <data name="Settings_LanguageHint" xml:space="preserve"><value>Sprache fuer die Benutzeroberflaeche auswaehlen.</value></data>
+  <data name="Autostart_CopyPathHint" xml:space="preserve"><value>Pfad markieren und mit Ctrl+C kopieren.</value></data>
+  <data name="Autostart_ActivateTooltip" xml:space="preserve"><value>Aktiviert diesen Autostart-Eintrag wieder.</value></data>
+  <data name="Autostart_DeactivateTooltip" xml:space="preserve"><value>Deaktiviert diesen Autostart-Eintrag, ohne die Datei zu loeschen.</value></data>
+  <data name="Autostart_StopProcessTooltip" xml:space="preserve"><value>Stoppt den aktuell laufenden Prozess zu diesem Eintrag, falls erlaubt.</value></data>
+  <data name="Autostart_OpenFileLocationTooltip" xml:space="preserve"><value>Oeffnet den Ordner der Datei im Explorer.</value></data>
+  <data name="Autostart_StartDefenderScanTooltip" xml:space="preserve"><value>Startet einen Windows Defender Schnellscan fuer eine sichere Pruefung.</value></data>
+</root>

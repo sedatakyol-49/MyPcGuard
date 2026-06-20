@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Title" xml:space="preserve"><value>MyPcGuard</value></data>
+  <data name="App_Subtitle" xml:space="preserve"><value>PC Health &amp; Security</value></data>
+  <data name="Nav_Dashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Nav_Autostart" xml:space="preserve"><value>Autostart</value></data>
+  <data name="Nav_Processes" xml:space="preserve"><value>Prozesse</value></data>
+  <data name="Nav_Security" xml:space="preserve"><value>Sicherheit</value></data>
+  <data name="Nav_Quarantine" xml:space="preserve"><value>Quarantäne</value></data>
+  <data name="Nav_History" xml:space="preserve"><value>Verlauf</value></data>
+  <data name="Nav_Reports" xml:space="preserve"><value>Berichte</value></data>
+  <data name="Nav_Settings" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Settings_LanguageChanged" xml:space="preserve"><value>Die Sprache wurde geändert. Bitte starten Sie die Anwendung neu, damit alle Texte aktualisiert werden.</value></data>
+  <data name="Quarantine_Intro" xml:space="preserve"><value>Hier landen Dateien, die durch eine sichere Aktion aus dem aktiven System entfernt wurden.</value></data>
+  <data name="Quarantine_Empty" xml:space="preserve"><value>Aktuell befinden sich keine Dateien in der Quarantaene.</value></data>
+  <data name="History_Intro" xml:space="preserve"><value>Der Verlauf zeigt ausgefuehrte Aktionen wie Autostart-Aenderungen, Prozessstopps und Defender-Scans.</value></data>
+  <data name="History_Empty" xml:space="preserve"><value>Noch keine Aktionen ausgefuehrt.</value></data>
+  <data name="Reports_Intro" xml:space="preserve"><value>Berichte fassen Scan-Ergebnisse, Risiken und Empfehlungen als HTML-Datei zusammen.</value></data>
+  <data name="Reports_Empty" xml:space="preserve"><value>Starte zuerst einen Scan, danach kann ein Bericht exportiert werden.</value></data>
+  <data name="Settings_Intro" xml:space="preserve"><value>Hier steuerst du Sprache, Datenschutz und lokale Programmeinstellungen.</value></data>
+  <data name="Settings_LanguageHint" xml:space="preserve"><value>Sprache fuer die Benutzeroberflaeche auswaehlen.</value></data>
+  <data name="Autostart_CopyPathHint" xml:space="preserve"><value>Pfad markieren und mit Ctrl+C kopieren.</value></data>
+  <data name="Autostart_ActivateTooltip" xml:space="preserve"><value>Aktiviert diesen Autostart-Eintrag wieder.</value></data>
+  <data name="Autostart_DeactivateTooltip" xml:space="preserve"><value>Deaktiviert diesen Autostart-Eintrag, ohne die Datei zu loeschen.</value></data>
+  <data name="Autostart_StopProcessTooltip" xml:space="preserve"><value>Stoppt den aktuell laufenden Prozess zu diesem Eintrag, falls erlaubt.</value></data>
+  <data name="Autostart_OpenFileLocationTooltip" xml:space="preserve"><value>Oeffnet den Ordner der Datei im Explorer.</value></data>
+  <data name="Autostart_StartDefenderScanTooltip" xml:space="preserve"><value>Startet einen Windows Defender Schnellscan fuer eine sichere Pruefung.</value></data>
+</root>
