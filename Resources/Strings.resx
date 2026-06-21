@@ -186,6 +186,15 @@
   <data name="System_Hardware" xml:space="preserve"><value>Hardware-Uebersicht</value></data>
   <data name="System_DiskHealth" xml:space="preserve"><value>Datentraeger-Zustand</value></data>
   <data name="System_Benchmark" xml:space="preserve"><value>Schneller RAM/SSD-Test</value></data>
+  <data name="System_Drivers" xml:space="preserve"><value>Treiber</value></data>
+  <data name="System_DriverInventory" xml:space="preserve"><value>Treiber- und Geraeteliste</value></data>
+  <data name="System_DriverInventoryEmpty" xml:space="preserve"><value>Keine lokalen Geraete- oder Treiberinformationen lesbar.</value></data>
+  <data name="System_DriverIssues" xml:space="preserve"><value>Problematische Geraete</value></data>
+  <data name="System_DriverIssuesEmpty" xml:space="preserve"><value>Keine lokal erkannten problematischen Geraete oder fehlenden Treiber gefunden.</value></data>
+  <data name="System_DriverDevice" xml:space="preserve"><value>Geraet</value></data>
+  <data name="System_DriverStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="System_DriverManufacturer" xml:space="preserve"><value>Hersteller</value></data>
+  <data name="System_DriverReason" xml:space="preserve"><value>Grund</value></data>
   <data name="System_ComputerName" xml:space="preserve"><value>Computername</value></data>
   <data name="System_UserName" xml:space="preserve"><value>Benutzer</value></data>
   <data name="System_Processor" xml:space="preserve"><value>Prozessor</value></data>

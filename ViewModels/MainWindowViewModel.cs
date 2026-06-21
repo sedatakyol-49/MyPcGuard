@@ -31,6 +31,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private readonly IUninstallCleanupPlanner uninstallCleanupPlanner;
     private readonly IProcessScanner processScanner;
     private readonly IHardwareInfoService hardwareInfoService;
+    private readonly IDeviceDriverScanner deviceDriverScanner;
     private readonly IAgentOrchestrator agentOrchestrator;
     private readonly IAgentMemoryService agentMemoryService;
     private readonly IAgentPolicyService agentPolicyService;
@@ -56,6 +57,7 @@ public partial class MainWindowViewModel : ViewModelBase
         IUninstallCleanupPlanner uninstallCleanupPlanner,
         IProcessScanner processScanner,
         IHardwareInfoService hardwareInfoService,
+        IDeviceDriverScanner deviceDriverScanner,
         IAgentOrchestrator agentOrchestrator,
         IAgentMemoryService agentMemoryService,
         IAgentPolicyService agentPolicyService,
@@ -75,6 +77,7 @@ public partial class MainWindowViewModel : ViewModelBase
         this.uninstallCleanupPlanner = uninstallCleanupPlanner;
         this.processScanner = processScanner;
         this.hardwareInfoService = hardwareInfoService;
+        this.deviceDriverScanner = deviceDriverScanner;
         this.agentOrchestrator = agentOrchestrator;
         this.agentMemoryService = agentMemoryService;
         this.agentPolicyService = agentPolicyService;
@@ -203,6 +206,12 @@ public partial class MainWindowViewModel : ViewModelBase
 
     [ObservableProperty]
     private HardwareInfo hardwareInfo = new();
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasDriverDevices))]
+    [NotifyPropertyChangedFor(nameof(DriverProblemDevices))]
+    [NotifyPropertyChangedFor(nameof(HasDriverProblemDevices))]
+    private IReadOnlyList<DriverIssue> driverDevices = [];
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(BenchmarkDiskWriteText))]
@@ -387,6 +396,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public string AgentSettingsRememberIgnoredText => T("AgentSettings_RememberIgnored");
     public string AgentSettingsClearMemoryText => T("AgentSettings_ClearMemory");
     public string AgentSettingsClearMemoryHintText => T("AgentSettings_ClearMemoryHint");
+    public string LanguageSelectorText => T("Settings_Language");
     public string ActionPlanTitleText => T("ActionPlan_Title");
     public string ActionPlanStepsText => T("ActionPlan_Steps");
     public string ActionPlanSafetyLevelText => T("ActionPlan_SafetyLevel");
@@ -496,6 +506,15 @@ public partial class MainWindowViewModel : ViewModelBase
     public string SystemHardwareTitleText => T("System_Hardware");
     public string SystemDiskHealthTitleText => T("System_DiskHealth");
     public string SystemBenchmarkTitleText => T("System_Benchmark");
+    public string SystemDriversTitleText => T("System_Drivers");
+    public string SystemDriverInventoryText => T("System_DriverInventory");
+    public string SystemDriverInventoryEmptyText => T("System_DriverInventoryEmpty");
+    public string SystemDriverIssuesText => T("System_DriverIssues");
+    public string SystemDriverIssuesEmptyText => T("System_DriverIssuesEmpty");
+    public string SystemDriverDeviceText => T("System_DriverDevice");
+    public string SystemDriverStatusText => T("System_DriverStatus");
+    public string SystemDriverManufacturerText => T("System_DriverManufacturer");
+    public string SystemDriverReasonText => T("System_DriverReason");
     public string SystemComputerNameText => T("System_ComputerName");
     public string SystemUserNameText => T("System_UserName");
     public string SystemProcessorText => T("System_Processor");
@@ -515,6 +534,9 @@ public partial class MainWindowViewModel : ViewModelBase
     public string BenchmarkDiskWriteText => BenchmarkResult is null ? "-" : $"{BenchmarkResult.DiskWriteMbPerSecond:0.0} MB/s";
     public string BenchmarkDiskReadText => BenchmarkResult is null ? "-" : $"{BenchmarkResult.DiskReadMbPerSecond:0.0} MB/s";
     public string BenchmarkMemoryCopyText => BenchmarkResult is null ? "-" : $"{BenchmarkResult.MemoryCopyMbPerSecond:0.0} MB/s";
+    public IReadOnlyList<DriverIssue> DriverProblemDevices => DriverDevices.Where(device => device.IsProblematic).ToList();
+    public bool HasDriverDevices => DriverDevices.Count > 0;
+    public bool HasDriverProblemDevices => DriverProblemDevices.Count > 0;
     public string VersionText => T("Common_Version");
     public string InstallDateText => T("Programs_InstallDate");
     public string SizeText => T("Programs_Size");
@@ -778,6 +800,7 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(AgentSettingsRememberIgnoredText));
         OnPropertyChanged(nameof(AgentSettingsClearMemoryText));
         OnPropertyChanged(nameof(AgentSettingsClearMemoryHintText));
+        OnPropertyChanged(nameof(LanguageSelectorText));
         OnPropertyChanged(nameof(ActionPlanTitleText));
         OnPropertyChanged(nameof(ActionPlanStepsText));
         OnPropertyChanged(nameof(ActionPlanSafetyLevelText));
@@ -877,6 +900,15 @@ public partial class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(SystemHardwareTitleText));
         OnPropertyChanged(nameof(SystemDiskHealthTitleText));
         OnPropertyChanged(nameof(SystemBenchmarkTitleText));
+        OnPropertyChanged(nameof(SystemDriversTitleText));
+        OnPropertyChanged(nameof(SystemDriverInventoryText));
+        OnPropertyChanged(nameof(SystemDriverInventoryEmptyText));
+        OnPropertyChanged(nameof(SystemDriverIssuesText));
+        OnPropertyChanged(nameof(SystemDriverIssuesEmptyText));
+        OnPropertyChanged(nameof(SystemDriverDeviceText));
+        OnPropertyChanged(nameof(SystemDriverStatusText));
+        OnPropertyChanged(nameof(SystemDriverManufacturerText));
+        OnPropertyChanged(nameof(SystemDriverReasonText));
         OnPropertyChanged(nameof(SystemComputerNameText));
         OnPropertyChanged(nameof(SystemUserNameText));
         OnPropertyChanged(nameof(SystemProcessorText));
@@ -1011,7 +1043,11 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private async Task LoadSystemDataAsync()
     {
-        HardwareInfo = await hardwareInfoService.GetHardwareInfoAsync(CancellationToken.None);
+        var hardwareTask = hardwareInfoService.GetHardwareInfoAsync(CancellationToken.None);
+        var driverTask = deviceDriverScanner.ScanAsync(CancellationToken.None);
+        await Task.WhenAll(hardwareTask, driverTask);
+        HardwareInfo = await hardwareTask;
+        DriverDevices = await driverTask;
     }
 
     private bool CanRunQuickBenchmark()
@@ -1752,12 +1788,31 @@ public partial class MainWindowViewModel : ViewModelBase
             var result = await installedProgramActionService.StartUninstallAsync(item, CancellationToken.None);
             StatusMessage = LocalizeResultMessage(result.Message);
             ActionHistoryItems = await actionHistoryService.GetHistoryAsync(CancellationToken.None);
+            InstalledPrograms = await installedProgramScanner.ScanAsync(CancellationToken.None);
             OnPropertyChanged(nameof(HistoryCountText));
             OnPropertyChanged(nameof(IsHistoryEmpty));
+            OnPropertyChanged(nameof(ProgramsCountText));
+            OnPropertyChanged(nameof(DashboardProgramsSummaryText));
+            _ = RefreshInstalledProgramsAfterDelayAsync();
         }
         catch (Exception ex)
         {
             StatusMessage = localizationService.GetString("Action_Failed", ex.Message);
+        }
+    }
+
+    private async Task RefreshInstalledProgramsAfterDelayAsync()
+    {
+        try
+        {
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            InstalledPrograms = await installedProgramScanner.ScanAsync(CancellationToken.None);
+            OnPropertyChanged(nameof(ProgramsCountText));
+            OnPropertyChanged(nameof(DashboardProgramsSummaryText));
+            await RunAgentAnalysisAsync();
+        }
+        catch
+        {
         }
     }
 

@@ -114,7 +114,7 @@
         </Border>
 
         <Grid Grid.Column="1" RowDefinitions="Auto,*" Margin="24" RowSpacing="18">
-            <Grid ColumnDefinitions="*,*,*,*,*,*" ColumnSpacing="12">
+            <Grid ColumnDefinitions="*,*,*,*,*,*,Auto" ColumnSpacing="12">
                 <Border Grid.Column="0" Background="White" CornerRadius="8" Padding="14" BorderBrush="#E2E8F0" BorderThickness="1">
                     <StackPanel>
                         <TextBlock Text="{Binding OsText}" Foreground="#64748B" FontSize="12"/>
@@ -149,6 +149,16 @@
                     <StackPanel>
                         <TextBlock Text="{Binding FindingsCountLabel}" Foreground="#64748B" FontSize="12"/>
                         <TextBlock Text="{Binding FindingsCountText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="6" Background="White" CornerRadius="8" Padding="12" BorderBrush="#E2E8F0" BorderThickness="1" MinWidth="170">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{Binding LanguageSelectorText}" Foreground="#64748B" FontSize="12"/>
+                        <ComboBox ItemsSource="{Binding SupportedLanguages}"
+                                  SelectedItem="{Binding SelectedLanguage}"
+                                  DisplayMemberBinding="{Binding NativeName}"
+                                  Cursor="Hand"
+                                  MinWidth="142"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -265,79 +275,6 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
 
-                                    <Border IsVisible="{Binding IsActionPlanVisible}" Background="#FFFFFF" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="8" Padding="14">
-                                        <StackPanel Spacing="10">
-                                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                                                <StackPanel Spacing="3">
-                                                    <TextBlock Text="{Binding ActionPlanTitleText}" Foreground="#64748B" FontSize="12"/>
-                                                    <TextBlock Text="{Binding SelectedActionPlan.Title}" Foreground="#0F172A" FontSize="18" FontWeight="SemiBold"/>
-                                                    <TextBlock Text="{Binding SelectedActionPlan.Description}" Foreground="#475569" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                                <Button Grid.Column="1"
-                                                        Content="{Binding ActionPlanCancelText}"
-                                                        Command="{Binding CancelActionPlanCommand}"
-                                                        Cursor="Hand"
-                                                        Padding="10,6"
-                                                        VerticalAlignment="Top"/>
-                                            </Grid>
-
-                                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
-                                                <Border Grid.Column="0" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
-                                                    <StackPanel Spacing="3">
-                                                        <TextBlock Text="{Binding ActionPlanSafetyLevelText}" Foreground="#64748B" FontSize="12"/>
-                                                        <TextBlock Text="{Binding SelectedActionPlan.SafetyLevel}" Foreground="#0F172A" FontWeight="SemiBold"/>
-                                                    </StackPanel>
-                                                </Border>
-                                                <Border Grid.Column="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
-                                                    <StackPanel Spacing="3">
-                                                        <TextBlock Text="{Binding ActionPlanRequiresAdminText}" Foreground="#64748B" FontSize="12"/>
-                                                        <TextBlock Text="{Binding SelectedActionPlan.RequiresAdmin}" Foreground="#0F172A" FontWeight="SemiBold"/>
-                                                    </StackPanel>
-                                                </Border>
-                                                <Border Grid.Column="2" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
-                                                    <StackPanel Spacing="3">
-                                                        <TextBlock Text="{Binding ActionPlanReversibleText}" Foreground="#64748B" FontSize="12"/>
-                                                        <TextBlock Text="{Binding SelectedActionPlan.IsReversible}" Foreground="#0F172A" FontWeight="SemiBold"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-
-                                            <TextBlock Text="{Binding ActionPlanStepsText}" Foreground="#0F172A" FontWeight="SemiBold"/>
-                                            <ItemsControl ItemsSource="{Binding SelectedActionPlan.Steps}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate x:DataType="agents:ActionPlanStep">
-                                                        <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="0,8">
-                                                            <Grid ColumnDefinitions="40,160,*" ColumnSpacing="10">
-                                                                <TextBlock Grid.Column="0" Text="{Binding Order}" FontWeight="SemiBold"/>
-                                                                <TextBlock Grid.Column="1" Text="{Binding ActionType}" TextTrimming="CharacterEllipsis"/>
-                                                                <StackPanel Grid.Column="2" Spacing="2">
-                                                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
-                                                                    <TextBlock Text="{Binding Target}" Foreground="#64748B" TextWrapping="Wrap"/>
-                                                                </StackPanel>
-                                                            </Grid>
-                                                        </Border>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-
-                                            <TextBlock Text="{Binding SelectedActionPlan.UserConfirmationText}" Foreground="#475569" TextWrapping="Wrap"/>
-                                            <TextBlock Text="{Binding ActionPlanNoAutomaticDriverText}" Foreground="#B54708" TextWrapping="Wrap"/>
-
-                                            <WrapPanel>
-                                                <Button Content="{Binding ActionPlanConfirmExecutionText}"
-                                                        Command="{Binding ExecuteActionPlanCommand}"
-                                                        Cursor="Hand"
-                                                        Background="#2563EB"
-                                                        Foreground="White"
-                                                        Margin="0,0,8,0"
-                                                        Padding="14,9"/>
-                                                <Button Content="{Binding ActionPlanCancelText}"
-                                                        Command="{Binding CancelActionPlanCommand}"
-                                                        Cursor="Hand"
-                                                        Padding="14,9"/>
-                                            </WrapPanel>
-                                        </StackPanel>
-                                    </Border>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -422,6 +359,46 @@
                                                         <TextBlock Grid.Column="3" Text="{Binding FreeSpaceText}"/>
                                                         <TextBlock Grid.Column="4" Text="{Binding UsedPercent, StringFormat={}{0:0}%}"/>
                                                         <TextBlock Grid.Column="5" Text="{Binding Recommendation}" TextWrapping="Wrap"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="14">
+                                <StackPanel Spacing="10">
+                                    <TextBlock Text="{Binding SystemDriversTitleText}" FontSize="16" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                    <TextBlock Text="{Binding SystemDriverInventoryText}" FontWeight="SemiBold" Foreground="#334155"/>
+                                    <TextBlock Text="{Binding SystemDriverInventoryEmptyText}" IsVisible="{Binding !HasDriverDevices}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                    <ScrollViewer MaxHeight="220" VerticalScrollBarVisibility="Auto" IsVisible="{Binding HasDriverDevices}">
+                                        <ItemsControl ItemsSource="{Binding DriverDevices}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate x:DataType="agents:DriverIssue">
+                                                    <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,8">
+                                                        <Grid ColumnDefinitions="*,150,170,100" ColumnSpacing="12">
+                                                            <TextBlock Grid.Column="0" Text="{Binding DeviceName}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding InstanceId}"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding DeviceClass}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding DeviceClass}"/>
+                                                            <TextBlock Grid.Column="2" Text="{Binding Manufacturer}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Manufacturer}"/>
+                                                            <TextBlock Grid.Column="3" Text="{Binding Status}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Reason}"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+
+                                    <TextBlock Text="{Binding SystemDriverIssuesText}" FontWeight="SemiBold" Foreground="#334155" Margin="0,8,0,0"/>
+                                    <TextBlock Text="{Binding SystemDriverIssuesEmptyText}" IsVisible="{Binding !HasDriverProblemDevices}" Foreground="#047857" TextWrapping="Wrap"/>
+                                    <ItemsControl ItemsSource="{Binding DriverProblemDevices}" IsVisible="{Binding HasDriverProblemDevices}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="agents:DriverIssue">
+                                                <Border Background="#FFF7ED" BorderBrush="#FDBA74" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,8">
+                                                    <Grid ColumnDefinitions="*,120,2*" ColumnSpacing="12">
+                                                        <TextBlock Grid.Column="0" Text="{Binding DeviceName}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding InstanceId}"/>
+                                                        <TextBlock Grid.Column="1" Text="{Binding Status}" FontWeight="SemiBold" Foreground="#9A3412" TextTrimming="CharacterEllipsis"/>
+                                                        <TextBlock Grid.Column="2" Text="{Binding Reason}" TextWrapping="Wrap" Foreground="#7C2D12" ToolTip.Tip="{Binding Reason}"/>
                                                     </Grid>
                                                 </Border>
                                             </DataTemplate>
@@ -939,16 +916,6 @@
                     <StackPanel IsVisible="{Binding IsSettingsVisible}" Margin="0,12,0,0" Spacing="16">
                         <TextBlock Text="{Binding SettingsIntroText}" Foreground="#475569" TextWrapping="Wrap"/>
                         <StackPanel Spacing="8">
-                            <TextBlock Text="{Binding SettingsLanguageText}" FontWeight="SemiBold"/>
-                            <TextBlock Text="{Binding SettingsLanguageHintText}" Foreground="#64748B" TextWrapping="Wrap"/>
-                            <ComboBox ItemsSource="{Binding SupportedLanguages}"
-                                      SelectedItem="{Binding SelectedLanguage}"
-                                      DisplayMemberBinding="{Binding NativeName}"
-                                      Cursor="Hand"
-                                      MinWidth="260"
-                                      HorizontalAlignment="Left"/>
-                        </StackPanel>
-                        <StackPanel Spacing="8">
                             <TextBlock Text="{Binding SettingsPrivacyText}" FontWeight="SemiBold"/>
                             <TextBlock Text="{Binding PrivacyLocalAnalysisText}" Foreground="#475569"/>
                             <TextBlock Text="{Binding PrivacyNoAutomaticUploadText}" Foreground="#475569"/>
@@ -979,6 +946,98 @@
                     </StackPanel>
                     </Grid>
                 </Grid>
+            </Border>
+
+            <Border Grid.Row="1"
+                    IsVisible="{Binding IsActionPlanVisible}"
+                    Background="#990F172A"
+                    CornerRadius="8"
+                    Padding="24"
+                    ZIndex="20">
+                <Border Background="White"
+                        BorderBrush="#CBD5E1"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="18"
+                        MaxWidth="820"
+                        MaxHeight="620"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                    <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="14">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                            <StackPanel Spacing="3">
+                                <TextBlock Text="{Binding ActionPlanTitleText}" Foreground="#64748B" FontSize="12"/>
+                                <TextBlock Text="{Binding SelectedActionPlan.Title}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding SelectedActionPlan.Description}" Foreground="#475569" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Button Grid.Column="1"
+                                    Content="{Binding ActionPlanCancelText}"
+                                    Command="{Binding CancelActionPlanCommand}"
+                                    Cursor="Hand"
+                                    Padding="10,6"
+                                    VerticalAlignment="Top"/>
+                        </Grid>
+
+                        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                            <Border Grid.Column="0" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
+                                <StackPanel Spacing="3">
+                                    <TextBlock Text="{Binding ActionPlanSafetyLevelText}" Foreground="#64748B" FontSize="12"/>
+                                    <TextBlock Text="{Binding SelectedActionPlan.SafetyLevel}" Foreground="#0F172A" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
+                                <StackPanel Spacing="3">
+                                    <TextBlock Text="{Binding ActionPlanRequiresAdminText}" Foreground="#64748B" FontSize="12"/>
+                                    <TextBlock Text="{Binding SelectedActionPlan.RequiresAdmin}" Foreground="#0F172A" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="2" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
+                                <StackPanel Spacing="3">
+                                    <TextBlock Text="{Binding ActionPlanReversibleText}" Foreground="#64748B" FontSize="12"/>
+                                    <TextBlock Text="{Binding SelectedActionPlan.IsReversible}" Foreground="#0F172A" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="{Binding ActionPlanStepsText}" Foreground="#0F172A" FontWeight="SemiBold"/>
+                                <ItemsControl ItemsSource="{Binding SelectedActionPlan.Steps}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="agents:ActionPlanStep">
+                                            <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="0,8">
+                                                <Grid ColumnDefinitions="40,160,*" ColumnSpacing="10">
+                                                    <TextBlock Grid.Column="0" Text="{Binding Order}" FontWeight="SemiBold"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding ActionType}" TextTrimming="CharacterEllipsis"/>
+                                                    <StackPanel Grid.Column="2" Spacing="2">
+                                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                                        <TextBlock Text="{Binding Target}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock Text="{Binding SelectedActionPlan.UserConfirmationText}" Foreground="#475569" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding ActionPlanNoAutomaticDriverText}" Foreground="#B54708" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <WrapPanel Grid.Row="3" HorizontalAlignment="Right">
+                            <Button Content="{Binding ActionPlanCancelText}"
+                                    Command="{Binding CancelActionPlanCommand}"
+                                    Cursor="Hand"
+                                    Margin="0,0,8,0"
+                                    Padding="14,9"/>
+                            <Button Content="{Binding ActionPlanConfirmExecutionText}"
+                                    Command="{Binding ExecuteActionPlanCommand}"
+                                    Cursor="Hand"
+                                    Background="#2563EB"
+                                    Foreground="White"
+                                    Padding="14,9"/>
+                        </WrapPanel>
+                    </Grid>
+                </Border>
             </Border>
         </Grid>
     </Grid>

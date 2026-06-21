@@ -12,7 +12,8 @@ public sealed class DriverCheckAgent(IAgentPolicyService policyService, IDeviceD
 
     public async Task<AgentResult> AnalyzeAsync(AgentContext context, CancellationToken cancellationToken)
     {
-        var driverIssues = await deviceDriverScanner.ScanAsync(cancellationToken);
+        var driverDevices = await deviceDriverScanner.ScanAsync(cancellationToken);
+        var driverIssues = driverDevices.Where(device => device.IsProblematic).ToList();
         var recommendations = new List<AgentRecommendation>
         {
             new()
@@ -80,7 +81,7 @@ public sealed class DriverCheckAgent(IAgentPolicyService policyService, IDeviceD
         var findings = driverIssues.Select(issue => new AgentFinding
         {
             Title = string.IsNullOrWhiteSpace(issue.DeviceName) ? "Problematic driver/device" : issue.DeviceName,
-            Description = $"Local device status: {issue.Status}",
+            Description = $"Local device status: {issue.Status}. Reason: {issue.Reason}",
             Category = Category,
             RiskLevel = issue.RiskLevel,
             Evidence = $"{issue.Manufacturer} {issue.DeviceClass} {issue.InstanceId}".Trim(),

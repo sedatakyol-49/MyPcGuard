@@ -9,5 +9,7 @@ public sealed record DriverIssue
     public string Manufacturer { get; init; } = string.Empty;
     public string InstanceId { get; init; } = string.Empty;
     public string Status { get; init; } = string.Empty;
+    public bool IsProblematic { get; init; }
+    public string Reason { get; init; } = string.Empty;
     public RiskLevel RiskLevel { get; init; } = RiskLevel.Info;
 }

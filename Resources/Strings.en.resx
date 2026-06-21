@@ -186,6 +186,15 @@
   <data name="System_Hardware" xml:space="preserve"><value>Hardware overview</value></data>
   <data name="System_DiskHealth" xml:space="preserve"><value>Disk health</value></data>
   <data name="System_Benchmark" xml:space="preserve"><value>Quick RAM/SSD test</value></data>
+  <data name="System_Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="System_DriverInventory" xml:space="preserve"><value>Driver and device list</value></data>
+  <data name="System_DriverInventoryEmpty" xml:space="preserve"><value>No local device or driver information could be read.</value></data>
+  <data name="System_DriverIssues" xml:space="preserve"><value>Problematic devices</value></data>
+  <data name="System_DriverIssuesEmpty" xml:space="preserve"><value>No locally detected problematic devices or missing drivers found.</value></data>
+  <data name="System_DriverDevice" xml:space="preserve"><value>Device</value></data>
+  <data name="System_DriverStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="System_DriverManufacturer" xml:space="preserve"><value>Manufacturer</value></data>
+  <data name="System_DriverReason" xml:space="preserve"><value>Reason</value></data>
   <data name="System_ComputerName" xml:space="preserve"><value>Computer name</value></data>
   <data name="System_UserName" xml:space="preserve"><value>User</value></data>
   <data name="System_Processor" xml:space="preserve"><value>Processor</value></data>
