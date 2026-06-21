@@ -83,13 +83,16 @@ public sealed class WindowsStartupScanner : IStartupScanner
         var publisher = GetPublisher(executablePath);
         var signature = GetSignature(executablePath);
         var relatedPids = GetRelatedProcessIds(executablePath);
-        var classification = Classify(valueName, command, executablePath, publisher, signature.trustStatus);
+        var displayName = string.IsNullOrWhiteSpace(valueName) && !string.IsNullOrWhiteSpace(executablePath)
+            ? Path.GetFileNameWithoutExtension(executablePath)
+            : valueName;
+        var classification = Classify(displayName, command, executablePath, publisher, signature.trustStatus);
         var essential = classification == StartupClassification.Essential;
 
         return new StartupItem
         {
             Id = $"{hive}|{keyPath}|{valueName}",
-            Name = valueName,
+            Name = displayName,
             Command = command,
             ExecutablePath = executablePath,
             Arguments = ExtractArguments(command, executablePath),

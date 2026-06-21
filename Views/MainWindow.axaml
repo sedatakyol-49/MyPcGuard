@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:MyPcGuard.ViewModels"
         xmlns:models="using:MyPcGuard.Models"
+        xmlns:agents="using:MyPcGuard.Agents.Models"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
@@ -68,21 +69,6 @@
                             Background="{Binding SecurityNavBackground}" BorderThickness="0"
                             HorizontalContentAlignment="Stretch" Padding="12,10">
                         <TextBlock Text="{Binding NavSecurity}" Foreground="{Binding SecurityNavForeground}" FontWeight="SemiBold"/>
-                    </Button>
-                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="5" Cursor="Hand"
-                            Background="{Binding QuarantineNavBackground}" BorderThickness="0"
-                            HorizontalContentAlignment="Stretch" Padding="12,10">
-                        <TextBlock Text="{Binding NavQuarantine}" Foreground="{Binding QuarantineNavForeground}" FontWeight="SemiBold"/>
-                    </Button>
-                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="6" Cursor="Hand"
-                            Background="{Binding HistoryNavBackground}" BorderThickness="0"
-                            HorizontalContentAlignment="Stretch" Padding="12,10">
-                        <TextBlock Text="{Binding NavHistory}" Foreground="{Binding HistoryNavForeground}" FontWeight="SemiBold"/>
-                    </Button>
-                    <Button Command="{Binding SelectSectionCommand}" CommandParameter="7" Cursor="Hand"
-                            Background="{Binding ReportsNavBackground}" BorderThickness="0"
-                            HorizontalContentAlignment="Stretch" Padding="12,10">
-                        <TextBlock Text="{Binding NavReports}" Foreground="{Binding ReportsNavForeground}" FontWeight="SemiBold"/>
                     </Button>
                     <Button Command="{Binding SelectSectionCommand}" CommandParameter="8" Cursor="Hand"
                             Background="{Binding SettingsNavBackground}" BorderThickness="0"
@@ -176,7 +162,7 @@
                                    FontWeight="SemiBold"/>
                     </Border>
                     <Grid Grid.Row="1">
-                    <StackPanel IsVisible="{Binding IsOverviewVisible}">
+                    <ScrollViewer IsVisible="{Binding IsOverviewVisible}" VerticalScrollBarVisibility="Auto">
                         <StackPanel Spacing="12" Margin="0,12,0,0">
                             <TextBlock Text="{Binding GeneralStatusText}" FontSize="18" FontWeight="SemiBold"/>
                             <TextBlock Text="{Binding StatusMessage}" Foreground="#475569" TextWrapping="Wrap"/>
@@ -188,7 +174,7 @@
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding FindingsCountLabel}" Foreground="#64748B"/>
                                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FindingsCountText}"/>
                                 <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding DefenderLabel}" Foreground="#64748B"/>
-                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DefenderStatus.StatusText}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DefenderStatusText}"/>
                             </Grid>
 
                             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="0,8,0,0">
@@ -211,8 +197,151 @@
                                     </StackPanel>
                                 </Border>
                             </Grid>
+
+                            <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="14" Margin="0,8,0,0">
+                                <StackPanel Spacing="10">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                        <StackPanel Spacing="2">
+                                            <TextBlock Text="{Binding AgentRecommendationsText}" FontSize="16" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                            <TextBlock Text="{Binding AgentNoAutomaticChangesText}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding AgentDriverPolicyText}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="1" Text="{Binding AgentStatusMessage}" Foreground="#64748B" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                                    </Grid>
+                                    <TextBlock Text="{Binding AgentEmptyText}" IsVisible="{Binding !HasAgentResults}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                    <ItemsControl ItemsSource="{Binding AgentResults}" IsVisible="{Binding HasAgentResults}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="agents:AgentResult">
+                                                <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,8">
+                                                    <StackPanel Spacing="8">
+                                                        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10">
+                                                            <TextBlock Grid.Column="0" Text="{Binding AgentName}" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding RiskLevel}" Foreground="#B54708" FontWeight="SemiBold"/>
+                                                            <TextBlock Grid.Column="2" Text="{Binding ConfidenceScore}" Foreground="#64748B"/>
+                                                        </Grid>
+                                                        <TextBlock Text="{Binding Summary}" Foreground="#475569" TextWrapping="Wrap"/>
+                                                        <ItemsControl ItemsSource="{Binding Recommendations}">
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate x:DataType="agents:AgentRecommendation">
+                                                                    <StackPanel Spacing="3" Margin="0,4,0,0">
+                                                                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                                                        <TextBlock Text="{Binding Reason}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                                                    </StackPanel>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                        <WrapPanel>
+                                                            <Button x:CompileBindings="False"
+                                                                    Content="{Binding DataContext.AgentCreateActionPlanText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    Command="{Binding DataContext.CreateAgentActionPlanCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Cursor="Hand"
+                                                                    Margin="0,0,8,0"
+                                                                    Padding="10,6"/>
+                                                            <Button x:CompileBindings="False"
+                                                                    Content="{Binding DataContext.AgentIgnoreText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    Command="{Binding DataContext.IgnoreAgentRecommendationCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Cursor="Hand"
+                                                                    Margin="0,0,8,0"
+                                                                    Padding="10,6"/>
+                                                            <Button x:CompileBindings="False"
+                                                                    Content="{Binding DataContext.AgentRemindLaterText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    Command="{Binding DataContext.RemindAgentRecommendationLaterCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Cursor="Hand"
+                                                                    Margin="0,0,8,0"
+                                                                    Padding="10,6"/>
+                                                            <Button x:CompileBindings="False"
+                                                                    Content="{Binding DataContext.AgentExecuteAfterApprovalText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    Command="{Binding DataContext.CreateAgentActionPlanCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Cursor="Hand"
+                                                                    Padding="10,6"/>
+                                                        </WrapPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <Border IsVisible="{Binding IsActionPlanVisible}" Background="#FFFFFF" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="8" Padding="14">
+                                        <StackPanel Spacing="10">
+                                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                                <StackPanel Spacing="3">
+                                                    <TextBlock Text="{Binding ActionPlanTitleText}" Foreground="#64748B" FontSize="12"/>
+                                                    <TextBlock Text="{Binding SelectedActionPlan.Title}" Foreground="#0F172A" FontSize="18" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="{Binding SelectedActionPlan.Description}" Foreground="#475569" TextWrapping="Wrap"/>
+                                                </StackPanel>
+                                                <Button Grid.Column="1"
+                                                        Content="{Binding ActionPlanCancelText}"
+                                                        Command="{Binding CancelActionPlanCommand}"
+                                                        Cursor="Hand"
+                                                        Padding="10,6"
+                                                        VerticalAlignment="Top"/>
+                                            </Grid>
+
+                                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                                                <Border Grid.Column="0" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
+                                                    <StackPanel Spacing="3">
+                                                        <TextBlock Text="{Binding ActionPlanSafetyLevelText}" Foreground="#64748B" FontSize="12"/>
+                                                        <TextBlock Text="{Binding SelectedActionPlan.SafetyLevel}" Foreground="#0F172A" FontWeight="SemiBold"/>
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border Grid.Column="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
+                                                    <StackPanel Spacing="3">
+                                                        <TextBlock Text="{Binding ActionPlanRequiresAdminText}" Foreground="#64748B" FontSize="12"/>
+                                                        <TextBlock Text="{Binding SelectedActionPlan.RequiresAdmin}" Foreground="#0F172A" FontWeight="SemiBold"/>
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border Grid.Column="2" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="10">
+                                                    <StackPanel Spacing="3">
+                                                        <TextBlock Text="{Binding ActionPlanReversibleText}" Foreground="#64748B" FontSize="12"/>
+                                                        <TextBlock Text="{Binding SelectedActionPlan.IsReversible}" Foreground="#0F172A" FontWeight="SemiBold"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+
+                                            <TextBlock Text="{Binding ActionPlanStepsText}" Foreground="#0F172A" FontWeight="SemiBold"/>
+                                            <ItemsControl ItemsSource="{Binding SelectedActionPlan.Steps}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="agents:ActionPlanStep">
+                                                        <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="0,8">
+                                                            <Grid ColumnDefinitions="40,160,*" ColumnSpacing="10">
+                                                                <TextBlock Grid.Column="0" Text="{Binding Order}" FontWeight="SemiBold"/>
+                                                                <TextBlock Grid.Column="1" Text="{Binding ActionType}" TextTrimming="CharacterEllipsis"/>
+                                                                <StackPanel Grid.Column="2" Spacing="2">
+                                                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                                                    <TextBlock Text="{Binding Target}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+
+                                            <TextBlock Text="{Binding SelectedActionPlan.UserConfirmationText}" Foreground="#475569" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding ActionPlanNoAutomaticDriverText}" Foreground="#B54708" TextWrapping="Wrap"/>
+
+                                            <WrapPanel>
+                                                <Button Content="{Binding ActionPlanConfirmExecutionText}"
+                                                        Command="{Binding ExecuteActionPlanCommand}"
+                                                        Cursor="Hand"
+                                                        Background="#2563EB"
+                                                        Foreground="White"
+                                                        Margin="0,0,8,0"
+                                                        Padding="14,9"/>
+                                                <Button Content="{Binding ActionPlanCancelText}"
+                                                        Command="{Binding CancelActionPlanCommand}"
+                                                        Cursor="Hand"
+                                                        Padding="14,9"/>
+                                            </WrapPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
-                    </StackPanel>
+                    </ScrollViewer>
 
                     <Grid IsVisible="{Binding IsFindingsVisible}" RowDefinitions="Auto,Auto,*" RowSpacing="10" Margin="0,12,0,0">
                         <StackPanel Orientation="Horizontal" Spacing="10">
@@ -255,6 +384,113 @@
                         </ListBox>
                     </Grid>
 
+                    <ScrollViewer IsVisible="{Binding IsSystemVisible}" Margin="0,12,0,0" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Spacing="14">
+                            <TextBlock Text="{Binding SystemIntroText}" Foreground="#475467" TextWrapping="Wrap"/>
+
+                            <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="14">
+                                <StackPanel Spacing="10">
+                                    <TextBlock Text="{Binding SystemHardwareTitleText}" FontSize="16" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                    <Grid ColumnDefinitions="180,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="8" ColumnSpacing="14">
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding SystemComputerNameText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding HardwareInfo.ComputerName}" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SystemUserNameText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding HardwareInfo.UserName}" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding OperatingSystemLabel}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding HardwareInfo.OperatingSystem}" TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding SystemProcessorText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding HardwareInfo.ProcessorName}" TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding SystemLogicalProcessorsText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding HardwareInfo.LogicalProcessorCount}"/>
+                                        <TextBlock Grid.Row="5" Grid.Column="0" Text="{Binding SystemTotalMemoryText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding HardwareInfo.TotalMemoryText}"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="14">
+                                <StackPanel Spacing="10">
+                                    <TextBlock Text="{Binding SystemDiskHealthTitleText}" FontSize="16" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                    <ItemsControl ItemsSource="{Binding HardwareInfo.Disks}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="models:DiskInfoItem">
+                                                <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,8">
+                                                    <Grid ColumnDefinitions="150,90,120,120,90,*" ColumnSpacing="12">
+                                                        <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold"/>
+                                                        <TextBlock Grid.Column="1" Text="{Binding DriveFormat}" TextTrimming="CharacterEllipsis"/>
+                                                        <TextBlock Grid.Column="2" Text="{Binding TotalSizeText}"/>
+                                                        <TextBlock Grid.Column="3" Text="{Binding FreeSpaceText}"/>
+                                                        <TextBlock Grid.Column="4" Text="{Binding UsedPercent, StringFormat={}{0:0}%}"/>
+                                                        <TextBlock Grid.Column="5" Text="{Binding Recommendation}" TextWrapping="Wrap"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="14">
+                                <StackPanel Spacing="10">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding SystemBenchmarkTitleText}" FontSize="16" FontWeight="SemiBold" Foreground="#0F172A"/>
+                                            <TextBlock Text="{Binding SystemBenchmarkDisclaimerText}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <Button Grid.Column="1"
+                                                Content="{Binding SystemRunBenchmarkText}"
+                                                Command="{Binding RunQuickBenchmarkCommand}"
+                                                Cursor="Hand"
+                                                Padding="14,9"/>
+                                    </Grid>
+                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                                        <Border Grid.Column="0" Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding SystemDiskWriteText}" Foreground="#64748B" FontSize="12"/>
+                                                <TextBlock Text="{Binding BenchmarkDiskWriteText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Grid.Column="1" Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding SystemDiskReadText}" Foreground="#64748B" FontSize="12"/>
+                                                <TextBlock Text="{Binding BenchmarkDiskReadText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Grid.Column="2" Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding SystemMemoryCopyText}" Foreground="#64748B" FontSize="12"/>
+                                                <TextBlock Text="{Binding BenchmarkMemoryCopyText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Grid RowDefinitions="Auto,*" RowSpacing="10">
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="{Binding ProcessesTitleText}" Foreground="#0F172A" FontSize="16" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding ProcessesIntroText}" Foreground="#475467" FontSize="13" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <ListBox Grid.Row="1" ItemsSource="{Binding Processes}" Background="Transparent" BorderThickness="0" MaxHeight="260">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate x:DataType="models:ProcessScanItem">
+                                            <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
+                                                <Grid ColumnDefinitions="180,70,90,130,150,*" ColumnSpacing="12">
+                                                    <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Name}"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding ProcessId}"/>
+                                                    <TextBlock Grid.Column="2" Text="{Binding CpuUsagePercent, StringFormat={}{0:0.0}%}"/>
+                                                    <TextBlock Grid.Column="3" Text="{Binding SignatureStatus}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding SignatureStatus}"/>
+                                                    <TextBlock Grid.Column="4" Text="{Binding Publisher}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Publisher}"/>
+                                                    <TextBlock Grid.Column="5" Text="{Binding Path}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Path}"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+
                     <Grid IsVisible="{Binding IsProcessesVisible}" RowDefinitions="Auto,*" RowSpacing="10" Margin="0,12,0,0">
                         <StackPanel Spacing="4">
                             <TextBlock Text="{Binding ProcessesIntroText}" Foreground="#475467" FontSize="13" TextWrapping="Wrap"/>
@@ -270,12 +506,12 @@
                                 <DataTemplate x:DataType="models:ProcessScanItem">
                                     <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
                                         <Grid ColumnDefinitions="180,70,90,130,150,*" ColumnSpacing="12">
-                                            <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold"/>
+                                            <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Name}"/>
                                             <TextBlock Grid.Column="1" Text="{Binding ProcessId}"/>
                                             <TextBlock Grid.Column="2" Text="{Binding CpuUsagePercent, StringFormat={}{0:0.0}%}"/>
-                                            <TextBlock Grid.Column="3" Text="{Binding SignatureStatus}"/>
-                                            <TextBlock Grid.Column="4" Text="{Binding Publisher}" TextTrimming="CharacterEllipsis"/>
-                                            <TextBlock Grid.Column="5" Text="{Binding Path}" TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding SignatureStatus}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding SignatureStatus}"/>
+                                            <TextBlock Grid.Column="4" Text="{Binding Publisher}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Publisher}"/>
+                                            <TextBlock Grid.Column="5" Text="{Binding Path}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Path}"/>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -334,34 +570,32 @@
                                       Grid.RowSpan="2"
                                       HorizontalScrollBarVisibility="Auto"
                                       VerticalScrollBarVisibility="Disabled">
-                            <Grid RowDefinitions="Auto,*" MinWidth="1220">
+                            <Grid RowDefinitions="Auto,*" MinWidth="1540">
                                 <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
-                                    <Grid ColumnDefinitions="72,150,120,150,220,180,70,*" ColumnSpacing="10">
+                                    <Grid ColumnDefinitions="80,210,150,190,310,150,260,80,*" ColumnSpacing="10">
                                         <TextBlock Grid.Column="0" Text="{Binding StatusText}" Foreground="#475467" FontWeight="SemiBold"/>
                                         <TextBlock Grid.Column="1" Text="{Binding NameText}" Foreground="#475467" FontWeight="SemiBold"/>
                                         <TextBlock Grid.Column="2" Text="{Binding CategoryText}" Foreground="#475467" FontWeight="SemiBold"/>
                                         <TextBlock Grid.Column="3" Text="{Binding PublisherText}" Foreground="#475467" FontWeight="SemiBold"/>
                                         <TextBlock Grid.Column="4" Text="{Binding PathText}" Foreground="#475467" FontWeight="SemiBold"/>
-                                        <TextBlock Grid.Column="5" Text="{Binding RecommendationText}" Foreground="#475467" FontWeight="SemiBold"/>
-                                        <TextBlock Grid.Column="6" Text="{Binding RunningText}" Foreground="#475467" FontWeight="SemiBold"/>
-                                        <TextBlock Grid.Column="7" Text="{Binding ActionsText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                        <TextBlock Grid.Column="5" Text="{Binding SignatureText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                        <TextBlock Grid.Column="6" Text="{Binding RecommendationText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                        <TextBlock Grid.Column="7" Text="{Binding RunningText}" Foreground="#475467" FontWeight="SemiBold"/>
+                                        <TextBlock Grid.Column="8" Text="{Binding ActionsText}" Foreground="#475467" FontWeight="SemiBold"/>
                                     </Grid>
                                 </Border>
 
-                                <ListBox Grid.Row="1" ItemsSource="{Binding FilteredStartupItems}" Background="Transparent" BorderThickness="0">
+                                <ListBox Grid.Row="1" ItemsSource="{Binding FilteredStartupRows}" Background="Transparent" BorderThickness="0">
                                     <ListBox.ItemTemplate>
-                                        <DataTemplate x:DataType="models:StartupItem">
+                                        <DataTemplate x:DataType="models:StartupItemDisplay">
                                             <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
-                                                <Grid ColumnDefinitions="72,150,120,150,220,180,70,*" ColumnSpacing="10">
-                                                    <TextBlock Grid.Column="0" Text="{Binding StatusText}" FontWeight="SemiBold"/>
-                                                    <StackPanel Grid.Column="1">
-                                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
-                                                        <TextBlock Text="{Binding SafetyMessage}" Foreground="#64748B" FontSize="11" TextTrimming="CharacterEllipsis"/>
-                                                    </StackPanel>
-                                                    <TextBlock Grid.Column="2" Text="{Binding StartupClassification}" TextTrimming="CharacterEllipsis"/>
-                                                    <TextBlock Grid.Column="3" Text="{Binding Publisher}" TextTrimming="CharacterEllipsis"/>
+                                                <Grid ColumnDefinitions="80,210,150,190,310,150,260,80,*" ColumnSpacing="10" ToolTip.Tip="{Binding DetailsTooltip}">
+                                                    <TextBlock Grid.Column="0" Text="{Binding StatusText}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding StatusText}"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding DisplayName}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding DisplayName}"/>
+                                                    <TextBlock Grid.Column="2" Text="{Binding ClassificationText}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding ClassificationText}"/>
+                                                    <TextBlock Grid.Column="3" Text="{Binding PublisherText}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding PublisherText}"/>
                                                     <TextBox Grid.Column="4"
-                                                             Text="{Binding ExecutablePath}"
+                                                             Text="{Binding ExecutablePathText}"
                                                              IsReadOnly="True"
                                                              BorderThickness="0"
                                                              Background="Transparent"
@@ -369,13 +603,14 @@
                                                              Cursor="IBeam"
                                                              TextWrapping="NoWrap"
                                                              x:CompileBindings="False"
-                                                             ToolTip.Tip="{Binding DataContext.CopyPathHintText, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                                                    <TextBlock Grid.Column="5" Text="{Binding Recommendation}" TextWrapping="Wrap"/>
-                                                    <TextBlock Grid.Column="6" Text="{Binding RunningText}"/>
-                                                    <WrapPanel Grid.Column="7" Orientation="Horizontal" x:CompileBindings="False">
+                                                             ToolTip.Tip="{Binding ExecutablePathText}"/>
+                                                    <TextBlock Grid.Column="5" Text="{Binding SignatureStatusText}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding SignatureStatusText}"/>
+                                                    <TextBlock Grid.Column="6" Text="{Binding RecommendationText}" TextWrapping="Wrap" ToolTip.Tip="{Binding RecommendationText}"/>
+                                                    <TextBlock Grid.Column="7" Text="{Binding RunningText}" ToolTip.Tip="{Binding RunningText}"/>
+                                                    <WrapPanel Grid.Column="8" Orientation="Horizontal" x:CompileBindings="False">
                                                         <Button Content="{Binding DataContext.StartupActivateText, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 Command="{Binding DataContext.EnableStartupCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                CommandParameter="{Binding}"
+                                                                CommandParameter="{Binding Item}"
                                                                 IsEnabled="{Binding CanEnable}"
                                                                 Cursor="Hand"
                                                                 ToolTip.Tip="{Binding DataContext.StartupActivateTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -383,7 +618,7 @@
                                                                 Padding="8,5"/>
                                                         <Button Content="{Binding DataContext.StartupDeactivateText, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 Command="{Binding DataContext.DisableStartupCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                CommandParameter="{Binding}"
+                                                                CommandParameter="{Binding Item}"
                                                                 IsEnabled="{Binding CanDisable}"
                                                                 Cursor="Hand"
                                                                 ToolTip.Tip="{Binding DataContext.StartupDeactivateTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -391,7 +626,7 @@
                                                                 Padding="8,5"/>
                                                         <Button Content="{Binding DataContext.StartupStopProcessText, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 Command="{Binding DataContext.StopStartupProcessCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                CommandParameter="{Binding}"
+                                                                CommandParameter="{Binding Item}"
                                                                 IsEnabled="{Binding CanStopProcess}"
                                                                 Cursor="Hand"
                                                                 ToolTip.Tip="{Binding DataContext.StartupStopProcessTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -399,14 +634,14 @@
                                                                 Padding="8,5"/>
                                                         <Button Content="{Binding DataContext.StartupOpenFileLocationText, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 Command="{Binding DataContext.OpenStartupLocationCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                CommandParameter="{Binding}"
+                                                                CommandParameter="{Binding Item}"
                                                                 Cursor="Hand"
                                                                 ToolTip.Tip="{Binding DataContext.StartupOpenFileLocationTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 Margin="0,0,6,6"
                                                                 Padding="8,5"/>
                                                         <Button Content="{Binding DataContext.StartupQuarantineText, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                 Command="{Binding DataContext.QuarantineStartupCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                CommandParameter="{Binding}"
+                                                                CommandParameter="{Binding Item}"
                                                                 IsEnabled="{Binding CanMoveToQuarantine}"
                                                                 Cursor="Hand"
                                                                 ToolTip.Tip="{Binding DataContext.StartupQuarantineTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -422,14 +657,14 @@
                         </ScrollViewer>
                     </Grid>
 
-                    <Grid IsVisible="{Binding IsProgramsVisible}" RowDefinitions="Auto,Auto,*" RowSpacing="10" Margin="0,12,0,0">
+                    <Grid IsVisible="{Binding IsProgramsVisible}" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="10" Margin="0,12,0,0">
                         <StackPanel Spacing="4">
                             <TextBlock Text="{Binding ProgramsIntroText}" Foreground="#475569" TextWrapping="Wrap"/>
                             <TextBlock Text="{Binding ProgramsCountText}" Foreground="#64748B"/>
                         </StackPanel>
 
                         <Border Grid.Row="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
-                            <Grid ColumnDefinitions="240,110,180,120,100,*,170" ColumnSpacing="10">
+                            <Grid ColumnDefinitions="240,110,180,120,100,*,260" ColumnSpacing="10">
                                 <TextBlock Grid.Column="0" Text="{Binding NameText}" Foreground="#475467" FontWeight="SemiBold"/>
                                 <TextBlock Grid.Column="1" Text="{Binding VersionText}" Foreground="#475467" FontWeight="SemiBold"/>
                                 <TextBlock Grid.Column="2" Text="{Binding PublisherText}" Foreground="#475467" FontWeight="SemiBold"/>
@@ -441,11 +676,11 @@
                         </Border>
 
                         <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Auto">
-                            <ListBox ItemsSource="{Binding InstalledPrograms}" Background="Transparent" BorderThickness="0" MinWidth="1120">
+                            <ListBox ItemsSource="{Binding InstalledPrograms}" Background="Transparent" BorderThickness="0" MinWidth="1260">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate x:DataType="models:InstalledProgramItem">
                                         <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="8">
-                                            <Grid ColumnDefinitions="240,110,180,120,100,*,170" ColumnSpacing="10">
+                                            <Grid ColumnDefinitions="240,110,180,120,100,*,260" ColumnSpacing="10">
                                                 <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
                                                 <TextBlock Grid.Column="1" Text="{Binding Version}" TextTrimming="CharacterEllipsis"/>
                                                 <TextBlock Grid.Column="2" Text="{Binding Publisher}" TextTrimming="CharacterEllipsis"/>
@@ -460,22 +695,48 @@
                                                          Cursor="IBeam"
                                                          TextWrapping="NoWrap"
                                                          x:CompileBindings="False"
-                                                         ToolTip.Tip="{Binding DataContext.CopyPathHintText, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                                                <Button Grid.Column="6"
-                                                        x:CompileBindings="False"
-                                                        Content="{Binding DataContext.UninstallText, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                        Command="{Binding DataContext.UninstallProgramCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                        CommandParameter="{Binding}"
-                                                        IsEnabled="{Binding CanUninstall}"
-                                                        Cursor="Hand"
-                                                        ToolTip.Tip="{Binding DataContext.UninstallTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                        Padding="10,6"/>
+                                                         ToolTip.Tip="{Binding InstallLocation}"/>
+                                                <WrapPanel Grid.Column="6" x:CompileBindings="False">
+                                                    <Button Content="{Binding DataContext.UninstallText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                            Command="{Binding DataContext.UninstallProgramCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                            CommandParameter="{Binding}"
+                                                            IsEnabled="{Binding CanUninstall}"
+                                                            Cursor="Hand"
+                                                            ToolTip.Tip="{Binding DataContext.UninstallTooltipText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                            Margin="0,0,6,6"
+                                                            Padding="10,6"/>
+                                                    <Button Content="{Binding DataContext.ProgramsAnalyzeLeftoversText, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                            Command="{Binding DataContext.AnalyzeProgramLeftoversCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                            CommandParameter="{Binding}"
+                                                            Cursor="Hand"
+                                                            Margin="0,0,6,6"
+                                                            Padding="10,6"/>
+                                                </WrapPanel>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </ScrollViewer>
+
+                        <Border Grid.Row="3" IsVisible="{Binding HasUninstallCleanupPlan}" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="14">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="{Binding ProgramsLeftoverPlanText}" FontSize="16" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding UninstallCleanupPlan.Summary}" Foreground="#475569" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding ProgramsLeftoverSafetyText}" Foreground="#B54708" TextWrapping="Wrap"/>
+                                <ItemsControl ItemsSource="{Binding UninstallCleanupPlan.Candidates}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="models:UninstallLeftoverCandidate">
+                                            <Grid ColumnDefinitions="*,100,160" ColumnSpacing="10" Margin="0,4,0,0">
+                                                <TextBlock Grid.Column="0" Text="{Binding Path}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Path}"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding SizeText}"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding SafetyLevel}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
                     </Grid>
 
                     <Grid IsVisible="{Binding IsServicesVisible}">
@@ -512,18 +773,109 @@
                         </ListBox>
                     </Grid>
 
-                    <Grid IsVisible="{Binding IsDefenderVisible}">
-                        <Grid Margin="0,12,0,0" ColumnDefinitions="190,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="14">
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding StatusText}" Foreground="#64748B"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DefenderStatus.StatusText}"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding RealtimeProtectionText}" Foreground="#64748B"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DefenderStatus.RealTimeProtectionEnabled}"/>
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding AntivirusText}" Foreground="#64748B"/>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DefenderStatus.AntivirusEnabled}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding NoteText}" Foreground="#64748B"/>
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DefenderStatus.ErrorMessage}" TextWrapping="Wrap"/>
-                        </Grid>
-                    </Grid>
+                    <ScrollViewer IsVisible="{Binding IsDefenderVisible}" Margin="0,12,0,0">
+                        <StackPanel Spacing="14">
+                            <Grid ColumnDefinitions="1.15*,0.85*" ColumnSpacing="14">
+                                <Border Grid.Column="0" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="16">
+                                    <Grid ColumnDefinitions="10,*" ColumnSpacing="14">
+                                        <Border Background="{Binding SecurityHealthBrush}" CornerRadius="5"/>
+                                        <StackPanel Grid.Column="1" Spacing="8">
+                                            <TextBlock Text="{Binding SecurityHealthLabelText}" Foreground="#64748B" FontSize="12"/>
+                                            <TextBlock Text="{Binding SecurityHealthText}" Foreground="#0F172A" FontSize="28" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding SecurityHealthSummaryText}" Foreground="#475569" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding SecurityScanStateText}" Foreground="#64748B" FontSize="12" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <Border Grid.Column="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="16">
+                                    <StackPanel Spacing="10">
+                                        <TextBlock Text="{Binding DashboardPerformanceTitleText}" Foreground="#64748B" FontSize="12"/>
+                                        <TextBlock Text="{Binding PerformanceHealthText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding PerformanceHealthSummaryText}" Foreground="#475569" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding PerformanceStartupImpactText}" Foreground="#64748B" FontSize="12" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,*,*,*,*" ColumnSpacing="10">
+                                <Border Grid.Column="0" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="{Binding SecurityActionableFindingsLabelText}" Foreground="#64748B" FontSize="12"/>
+                                        <TextBlock Text="{Binding SecurityActionableFindingsText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="1" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="{Binding SecurityHighFindingsLabelText}" Foreground="#64748B" FontSize="12"/>
+                                        <TextBlock Text="{Binding SecurityHighFindingsText}" Foreground="#B42318" FontSize="22" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="2" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="{Binding CpuUsageLabel}" Foreground="#64748B" FontSize="12"/>
+                                        <TextBlock Text="{Binding CpuUsageText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding PerformanceCpuStatusText}" Foreground="#64748B" FontSize="12"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="3" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="{Binding RamUsageLabel}" Foreground="#64748B" FontSize="12"/>
+                                        <TextBlock Text="{Binding MemoryUsageText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding PerformanceMemoryStatusText}" Foreground="#64748B" FontSize="12"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="4" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="12">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="{Binding DiskUsageLabel}" Foreground="#64748B" FontSize="12"/>
+                                        <TextBlock Text="{Binding DiskUsageText}" Foreground="#0F172A" FontSize="22" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding PerformanceDiskStatusText}" Foreground="#64748B" FontSize="12"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="0.9*,1.1*" ColumnSpacing="14">
+                                <Border Grid.Column="0" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="14">
+                                    <Grid ColumnDefinitions="190,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="14">
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DefenderLabel}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SecurityDefenderSummaryText}" TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding StatusText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DefenderStatusText}" TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding RealtimeProtectionText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DefenderStatus.RealTimeProtectionEnabled}"/>
+                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding AntivirusText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DefenderStatus.AntivirusEnabled}"/>
+                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding NoteText}" Foreground="#64748B"/>
+                                        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding DefenderStatus.ErrorMessage}" TextWrapping="Wrap"/>
+                                    </Grid>
+                                </Border>
+
+                                <Border Grid.Column="1" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="14">
+                                    <StackPanel Spacing="10">
+                                        <TextBlock Text="{Binding SecurityTopFindingsTitleText}" Foreground="#0F172A" FontSize="16" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding SecurityStartScanHintText}" IsVisible="{Binding SecurityStartScanHintVisible}" Foreground="#64748B" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding SecurityNoFindingsText}" IsVisible="{Binding SecurityNoFindingsVisible}" Foreground="#047857" TextWrapping="Wrap"/>
+                                        <ItemsControl ItemsSource="{Binding SecurityTopFindings}" IsVisible="{Binding HasSecurityTopFindings}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate x:DataType="models:RiskFinding">
+                                                    <Border BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="0,8">
+                                                        <Grid ColumnDefinitions="82,120,*" ColumnSpacing="10">
+                                                            <TextBlock Grid.Column="0" Text="{Binding Level}" FontWeight="SemiBold"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding Category}" TextTrimming="CharacterEllipsis"/>
+                                                            <StackPanel Grid.Column="2" Spacing="2">
+                                                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                                                <TextBlock Text="{Binding Recommendation}" Foreground="#475569" TextWrapping="Wrap"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
 
                     <Grid IsVisible="{Binding IsQuarantineVisible}" RowDefinitions="Auto,*" RowSpacing="12" Margin="0,12,0,0">
                         <StackPanel Spacing="6">
@@ -601,6 +953,27 @@
                             <TextBlock Text="{Binding PrivacyLocalAnalysisText}" Foreground="#475569"/>
                             <TextBlock Text="{Binding PrivacyNoAutomaticUploadText}" Foreground="#475569"/>
                             <TextBlock Text="{Binding PrivacyOptionalHashCheckText}" Foreground="#475569"/>
+                        </StackPanel>
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding AgentSettingsTitleText}" FontWeight="SemiBold"/>
+                            <CheckBox Content="{Binding AgentSettingsEnableRecommendationsText}"
+                                      IsChecked="{Binding AgentRecommendationsEnabled}"
+                                      Cursor="Hand"/>
+                            <CheckBox Content="{Binding AgentSettingsAllowOnlineResearchText}"
+                                      IsChecked="{Binding OnlineResearchAllowed}"
+                                      Cursor="Hand"/>
+                            <CheckBox Content="{Binding AgentSettingsOfficialSourcesOnlyText}"
+                                      IsChecked="{Binding OfficialSourcesOnly}"
+                                      Cursor="Hand"/>
+                            <CheckBox Content="{Binding AgentSettingsRememberIgnoredText}"
+                                      IsChecked="{Binding RememberIgnoredRecommendations}"
+                                      Cursor="Hand"/>
+                            <TextBlock Text="{Binding AgentSettingsClearMemoryHintText}" Foreground="#64748B" TextWrapping="Wrap"/>
+                            <Button Content="{Binding AgentSettingsClearMemoryText}"
+                                    Command="{Binding ClearAgentMemoryCommand}"
+                                    Cursor="Hand"
+                                    HorizontalAlignment="Left"
+                                    Padding="14,10"/>
                         </StackPanel>
                         <TextBlock Text="{Binding DisclaimerText}" Foreground="#64748B" TextWrapping="Wrap"/>
                     </StackPanel>

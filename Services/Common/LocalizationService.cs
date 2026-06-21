@@ -20,7 +20,11 @@ public sealed class LocalizationService : ILocalizationService
     {
         this.userSettingsService = userSettingsService;
         CurrentCulture = userSettingsService.GetLanguage();
-        CultureInfo.CurrentUICulture = new CultureInfo(CurrentCulture);
+        var culture = new CultureInfo(CurrentCulture);
+        CultureInfo.CurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
     }
 
     public string CurrentCulture { get; private set; }
@@ -66,8 +70,11 @@ public sealed class LocalizationService : ILocalizationService
         }
 
         CurrentCulture = cultureCode;
-        CultureInfo.CurrentUICulture = new CultureInfo(cultureCode);
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(cultureCode);
+        var culture = new CultureInfo(cultureCode);
+        CultureInfo.CurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
 
         _ = Task.Run(() => userSettingsService.SaveLanguageAsync(cultureCode, CancellationToken.None));
 

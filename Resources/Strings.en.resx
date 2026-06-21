@@ -169,6 +169,8 @@
   <data name="Processes_Intro" xml:space="preserve"><value>Running processes with CPU usage, signature, publisher and file path.</value></data>
   <data name="Processes_Empty" xml:space="preserve"><value>No process data is loaded yet. Start a scan or wait a moment.</value></data>
   <data name="Nav_Programs" xml:space="preserve"><value>Programs</value></data>
+  <data name="Nav_System" xml:space="preserve"><value>System</value></data>
+  <data name="Nav_Cleanup" xml:space="preserve"><value>Cleanup</value></data>
   <data name="Programs_Intro" xml:space="preserve"><value>View installed Windows programs, check versions, and start the official uninstaller when needed.</value></data>
   <data name="Programs_Count" xml:space="preserve"><value>{0} programs found</value></data>
   <data name="Common_Version" xml:space="preserve"><value>Version</value></data>
@@ -177,7 +179,124 @@
   <data name="Programs_Uninstall" xml:space="preserve"><value>Uninstall</value></data>
   <data name="Programs_UninstallTooltip" xml:space="preserve"><value>Starts this program's Windows uninstaller. MyPcGuard does not delete files directly.</value></data>
   <data name="Programs_UninstallConfirm" xml:space="preserve"><value>Start the Windows uninstaller for {0}?</value></data>
+  <data name="Programs_AnalyzeLeftovers" xml:space="preserve"><value>Analyze leftovers</value></data>
+  <data name="Programs_LeftoverPlan" xml:space="preserve"><value>Uninstall cleanup plan</value></data>
+  <data name="Programs_LeftoverSafety" xml:space="preserve"><value>MyPcGuard does not delete anything automatically here. Only clearly related candidates are shown and must be explicitly confirmed later.</value></data>
+  <data name="System_Intro" xml:space="preserve"><value>Hardware, disks, driver-related clues and quick local performance values in one place.</value></data>
+  <data name="System_Hardware" xml:space="preserve"><value>Hardware overview</value></data>
+  <data name="System_DiskHealth" xml:space="preserve"><value>Disk health</value></data>
+  <data name="System_Benchmark" xml:space="preserve"><value>Quick RAM/SSD test</value></data>
+  <data name="System_ComputerName" xml:space="preserve"><value>Computer name</value></data>
+  <data name="System_UserName" xml:space="preserve"><value>User</value></data>
+  <data name="System_Processor" xml:space="preserve"><value>Processor</value></data>
+  <data name="System_LogicalProcessors" xml:space="preserve"><value>Logical processors</value></data>
+  <data name="System_TotalMemory" xml:space="preserve"><value>Memory</value></data>
+  <data name="System_DiskName" xml:space="preserve"><value>Drive</value></data>
+  <data name="System_DiskFormat" xml:space="preserve"><value>Format</value></data>
+  <data name="System_DiskSize" xml:space="preserve"><value>Size</value></data>
+  <data name="System_DiskFree" xml:space="preserve"><value>Free</value></data>
+  <data name="System_DiskUsed" xml:space="preserve"><value>Used</value></data>
+  <data name="System_DiskRecommendation" xml:space="preserve"><value>Recommendation</value></data>
+  <data name="System_RunBenchmark" xml:space="preserve"><value>Run test</value></data>
+  <data name="System_BenchmarkDisclaimer" xml:space="preserve"><value>Short local orientation test. Results vary with power mode, cache, background load and free disk space.</value></data>
+  <data name="System_DiskWrite" xml:space="preserve"><value>SSD write</value></data>
+  <data name="System_DiskRead" xml:space="preserve"><value>SSD read</value></data>
+  <data name="System_MemoryCopy" xml:space="preserve"><value>RAM copy</value></data>
+  <data name="System_BenchmarkCompleted" xml:space="preserve"><value>Quick performance test completed.</value></data>
   <data name="Action_Uninstall_Started" xml:space="preserve"><value>Uninstaller was started.</value></data>
   <data name="Action_Uninstall_Failed" xml:space="preserve"><value>Uninstaller could not be started.</value></data>
   <data name="Action_Uninstall_NotAvailable" xml:space="preserve"><value>No uninstall command was found for this program.</value></data>
+  <data name="Security_HealthLabel" xml:space="preserve"><value>Computer security</value></data>
+  <data name="Security_HealthUnknown" xml:space="preserve"><value>Unknown yet</value></data>
+  <data name="Security_HealthUnsafe" xml:space="preserve"><value>Not safe</value></data>
+  <data name="Security_HealthAttention" xml:space="preserve"><value>Needs attention</value></data>
+  <data name="Security_HealthMostlySafe" xml:space="preserve"><value>Mostly safe</value></data>
+  <data name="Security_HealthSafe" xml:space="preserve"><value>Looks safe</value></data>
+  <data name="Security_ScanStateLabel" xml:space="preserve"><value>Scan state</value></data>
+  <data name="Security_NotScannedState" xml:space="preserve"><value>No full scan has been run yet.</value></data>
+  <data name="Security_ScannedState" xml:space="preserve"><value>Last scan: {0}</value></data>
+  <data name="Security_ActionableFindingsLabel" xml:space="preserve"><value>Needs attention</value></data>
+  <data name="Security_HighFindingsLabel" xml:space="preserve"><value>High risk</value></data>
+  <data name="Security_TopFindingsTitle" xml:space="preserve"><value>Important security findings</value></data>
+  <data name="Security_NoFindings" xml:space="preserve"><value>The scan found no priority security findings. Keep watching Defender and system load.</value></data>
+  <data name="Security_StartScanHint" xml:space="preserve"><value>Start a scan to clearly see whether this computer is safe. Defender, signatures, risky processes and startup items are evaluated together.</value></data>
+  <data name="Security_SummarySafe" xml:space="preserve"><value>Defender is active and no priority risk was found.</value></data>
+  <data name="Security_SummaryHighRisk" xml:space="preserve"><value>{0} high-risk findings and {1} total findings need attention.</value></data>
+  <data name="Security_SummaryAttention" xml:space="preserve"><value>{0} findings should be checked. Follow the recommended actions.</value></data>
+  <data name="Security_DefenderUnavailable" xml:space="preserve"><value>Defender status could not be read. Check Windows Security manually.</value></data>
+  <data name="Security_DefenderHealthy" xml:space="preserve"><value>Defender protection appears active.</value></data>
+  <data name="Security_DefenderAttention" xml:space="preserve"><value>Defender protection needs attention.</value></data>
+  <data name="Performance_HealthLabel" xml:space="preserve"><value>Performance state</value></data>
+  <data name="Performance_HealthGood" xml:space="preserve"><value>Good</value></data>
+  <data name="Performance_HealthAttention" xml:space="preserve"><value>May slow down</value></data>
+  <data name="Performance_HealthSlow" xml:space="preserve"><value>High load</value></data>
+  <data name="Performance_SummaryHighUsage" xml:space="preserve"><value>CPU, memory or disk usage is very high. The computer may feel slow.</value></data>
+  <data name="Performance_SummaryLiveOnly" xml:space="preserve"><value>Live CPU, RAM and disk values are shown. Start a scan to include startup impact.</value></data>
+  <data name="Performance_SummaryWithStartup" xml:space="preserve"><value>{0} of {1} startup items may affect performance.</value></data>
+  <data name="Performance_UsageGood" xml:space="preserve"><value>Normal</value></data>
+  <data name="Performance_UsageElevated" xml:space="preserve"><value>Elevated</value></data>
+  <data name="Performance_UsageHigh" xml:space="preserve"><value>Very high</value></data>
+  <data name="Performance_StartupNotScanned" xml:space="preserve"><value>Startup impact has not been scanned yet.</value></data>
+  <data name="Performance_StartupImpact" xml:space="preserve"><value>{0} optimizable items among {1} startup items.</value></data>
+  <data name="Agent_Recommendations" xml:space="preserve"><value>Agent recommendations</value></data>
+  <data name="Agent_Confidence" xml:space="preserve"><value>Confidence</value></data>
+  <data name="Agent_Reason" xml:space="preserve"><value>Reason</value></data>
+  <data name="Agent_CreateActionPlan" xml:space="preserve"><value>Create action plan</value></data>
+  <data name="Agent_Ignore" xml:space="preserve"><value>Ignore</value></data>
+  <data name="Agent_RemindLater" xml:space="preserve"><value>Remind later</value></data>
+  <data name="Agent_ExecuteAfterApproval" xml:space="preserve"><value>Execute after approval</value></data>
+  <data name="Agent_OnlineResearchDisabled" xml:space="preserve"><value>Online research is disabled.</value></data>
+  <data name="Agent_RequiresApproval" xml:space="preserve"><value>Requires user approval</value></data>
+  <data name="Agent_NoAutomaticChanges" xml:space="preserve"><value>Agents do not change the system without user approval.</value></data>
+  <data name="Agent_Empty" xml:space="preserve"><value>Start a scan to generate agent recommendations.</value></data>
+  <data name="Agent_Analyzing" xml:space="preserve"><value>Agents are analyzing...</value></data>
+  <data name="Agent_Completed" xml:space="preserve"><value>{0} agent results are ready.</value></data>
+  <data name="Agent_MemoryCleared" xml:space="preserve"><value>Agent memory was cleared.</value></data>
+  <data name="AgentSettings_Title" xml:space="preserve"><value>Agent settings</value></data>
+  <data name="AgentSettings_EnableRecommendations" xml:space="preserve"><value>Enable agent recommendations</value></data>
+  <data name="AgentSettings_RememberIgnored" xml:space="preserve"><value>Remember ignored recommendations</value></data>
+  <data name="AgentSettings_ClearMemory" xml:space="preserve"><value>Clear agent memory</value></data>
+  <data name="AgentSettings_ClearMemoryHint" xml:space="preserve"><value>Local agent memory is stored at %LocalAppData%\MyPcGuard\agent-memory.json.</value></data>
+  <data name="ActionPlan_Title" xml:space="preserve"><value>Action plan</value></data>
+  <data name="ActionPlan_Steps" xml:space="preserve"><value>Steps</value></data>
+  <data name="ActionPlan_SafetyLevel" xml:space="preserve"><value>Safety level</value></data>
+  <data name="ActionPlan_RequiresAdmin" xml:space="preserve"><value>Requires admin</value></data>
+  <data name="ActionPlan_Reversible" xml:space="preserve"><value>Reversible</value></data>
+  <data name="ActionPlan_BackupLocation" xml:space="preserve"><value>Backup location</value></data>
+  <data name="ActionPlan_PossibleSideEffects" xml:space="preserve"><value>Possible side effects</value></data>
+  <data name="ActionPlan_ConfirmExecution" xml:space="preserve"><value>Confirm execution</value></data>
+  <data name="WebResearch_Title" xml:space="preserve"><value>Online research</value></data>
+  <data name="WebResearch_AllowOnlineResearch" xml:space="preserve"><value>Allow online research</value></data>
+  <data name="WebResearch_OfficialSourcesOnly" xml:space="preserve"><value>Use official sources only</value></data>
+  <data name="WebResearch_SourceVerified" xml:space="preserve"><value>Source verified</value></data>
+  <data name="WebResearch_SourceUnverified" xml:space="preserve"><value>Source unverified</value></data>
+  <data name="WebResearch_SourceRejected" xml:space="preserve"><value>Source rejected</value></data>
+  <data name="WebResearch_NoAutomaticDownloads" xml:space="preserve"><value>Drivers are never downloaded or installed automatically; the user opens official sources manually.</value></data>
+  <data name="ActionPlan_Created" xml:space="preserve"><value>Action plan created for {0}.</value></data>
+  <data name="ActionPlan_Executed" xml:space="preserve"><value>Action plan completed: {0} steps executed, {1} steps skipped.</value></data>
+  <data name="Agent_Ignored" xml:space="preserve"><value>{0} recommendation ignored.</value></data>
+  <data name="Agent_RemindLaterSet" xml:space="preserve"><value>{0} will be reminded later.</value></data>
+  <data name="Common_Signature" xml:space="preserve"><value>Signature</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Unknown</value></data>
+  <data name="Common_NotAvailable" xml:space="preserve"><value>Not available</value></data>
+  <data name="Common_Yes" xml:space="preserve"><value>Yes</value></data>
+  <data name="Common_No" xml:space="preserve"><value>No</value></data>
+  <data name="Risk_None" xml:space="preserve"><value>None</value></data>
+  <data name="Autostart_Recommended" xml:space="preserve"><value>Recommended</value></data>
+  <data name="Autostart_UnnamedItem" xml:space="preserve"><value>Unnamed startup item</value></data>
+  <data name="Autostart_RecommendationEssential" xml:space="preserve"><value>May be important for system or security; disabling is not recommended.</value></data>
+  <data name="Autostart_RecommendationRecommended" xml:space="preserve"><value>Keep enabled if you use this feature.</value></data>
+  <data name="Autostart_RecommendationOptional" xml:space="preserve"><value>Does not have to start automatically; disabling it may speed up startup.</value></data>
+  <data name="Autostart_RecommendationUnnecessary" xml:space="preserve"><value>Can be disabled if you do not need it.</value></data>
+  <data name="Autostart_RecommendationSuspicious" xml:space="preserve"><value>Check file location and signature first, then start a Defender scan.</value></data>
+  <data name="Autostart_RecommendationUnknown" xml:space="preserve"><value>Check file location, publisher and signature first.</value></data>
+  <data name="Signature_MicrosoftSigned" xml:space="preserve"><value>Microsoft signed</value></data>
+  <data name="Signature_Signed" xml:space="preserve"><value>Signed</value></data>
+  <data name="Signature_Unsigned" xml:space="preserve"><value>Unsigned</value></data>
+  <data name="Signature_NotAccessible" xml:space="preserve"><value>Not accessible</value></data>
+  <data name="Signature_NotChecked" xml:space="preserve"><value>Not checked</value></data>
+  <data name="Signature_NotApplicable" xml:space="preserve"><value>Not applicable</value></data>
+  <data name="Signature_Unknown" xml:space="preserve"><value>Unknown signature</value></data>
+  <data name="Security_DefenderActive" xml:space="preserve"><value>Active</value></data>
+  <data name="Security_DefenderNeedsAttention" xml:space="preserve"><value>Needs attention</value></data>
 </root>

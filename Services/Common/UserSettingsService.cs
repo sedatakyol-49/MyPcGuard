@@ -10,58 +10,85 @@ public sealed class UserSettingsService : IUserSettingsService
 
     public string GetLanguage()
     {
-        try
-        {
-            if (!File.Exists(SettingsPath))
-            {
-                return "de";
-            }
-
-            using var stream = File.OpenRead(SettingsPath);
-            var settings = JsonSerializer.Deserialize<UserSettings>(stream);
-            return settings is not null && SupportedCultures.Contains(settings.Language) ? settings.Language : "de";
-        }
-        catch
-        {
-            return "de";
-        }
+        return NormalizeLanguage(LoadSettingsSafe().Language);
     }
 
     public async Task<string> GetLanguageAsync(CancellationToken cancellationToken)
     {
-        try
-        {
-            if (!File.Exists(SettingsPath))
-            {
-                return "de";
-            }
-
-            await using var stream = File.OpenRead(SettingsPath);
-            var settings = await JsonSerializer.DeserializeAsync<UserSettings>(stream, cancellationToken: cancellationToken);
-            return settings is not null && SupportedCultures.Contains(settings.Language) ? settings.Language : "de";
-        }
-        catch
-        {
-            return "de";
-        }
+        var settings = await GetSettingsAsync(cancellationToken);
+        return NormalizeLanguage(settings.Language);
     }
 
     public async Task SaveLanguageAsync(string cultureCode, CancellationToken cancellationToken)
     {
         try
         {
-            var language = SupportedCultures.Contains(cultureCode) ? cultureCode : "de";
-            Directory.CreateDirectory(Path.GetDirectoryName(SettingsPath)!);
-            await using var stream = File.Create(SettingsPath);
-            await JsonSerializer.SerializeAsync(stream, new UserSettings { Language = language }, new JsonSerializerOptions { WriteIndented = true }, cancellationToken);
+            var settings = await GetSettingsAsync(cancellationToken);
+            await SaveSettingsAsync(settings with { Language = NormalizeLanguage(cultureCode) }, cancellationToken);
         }
         catch
         {
         }
     }
 
-    private sealed record UserSettings
+    public async Task<UserSettingsSnapshot> GetSettingsAsync(CancellationToken cancellationToken)
     {
-        public string Language { get; init; } = "de";
+        try
+        {
+            if (!File.Exists(SettingsPath))
+            {
+                return new UserSettingsSnapshot();
+            }
+
+            await using var stream = File.OpenRead(SettingsPath);
+            var settings = await JsonSerializer.DeserializeAsync<UserSettingsSnapshot>(stream, cancellationToken: cancellationToken);
+            return Normalize(settings);
+        }
+        catch
+        {
+            return new UserSettingsSnapshot();
+        }
+    }
+
+    public async Task SaveSettingsAsync(UserSettingsSnapshot settings, CancellationToken cancellationToken)
+    {
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(SettingsPath)!);
+            await using var stream = File.Create(SettingsPath);
+            await JsonSerializer.SerializeAsync(stream, Normalize(settings), new JsonSerializerOptions { WriteIndented = true }, cancellationToken);
+        }
+        catch
+        {
+        }
+    }
+
+    private static UserSettingsSnapshot LoadSettingsSafe()
+    {
+        try
+        {
+            if (!File.Exists(SettingsPath))
+            {
+                return new UserSettingsSnapshot();
+            }
+
+            using var stream = File.OpenRead(SettingsPath);
+            return Normalize(JsonSerializer.Deserialize<UserSettingsSnapshot>(stream));
+        }
+        catch
+        {
+            return new UserSettingsSnapshot();
+        }
+    }
+
+    private static UserSettingsSnapshot Normalize(UserSettingsSnapshot? settings)
+    {
+        settings ??= new UserSettingsSnapshot();
+        return settings with { Language = NormalizeLanguage(settings.Language) };
+    }
+
+    private static string NormalizeLanguage(string? cultureCode)
+    {
+        return !string.IsNullOrWhiteSpace(cultureCode) && SupportedCultures.Contains(cultureCode) ? cultureCode : "de";
     }
 }

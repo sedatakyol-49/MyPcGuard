@@ -20,6 +20,56 @@ MyPcGuard is not antivirus software and does not replace antivirus protection. I
 
 MyPcGuard is designed local-first. Optional future online checks should use file hashes only, not full file uploads.
 
+## Agentic Architecture
+
+MyPcGuard includes an agent layer on top of the classic scanner and service modules. Agents do not replace the scanners; they interpret local scan results, explain why something matters, and prepare conservative action plans.
+
+Current agent foundation:
+
+- Startup Optimization Agent
+- Security Agent
+- Program Uninstall Agent
+- Driver Check Agent
+- Web Research Agent placeholder
+- Official Source Verifier
+- Agent policy, memory and orchestration services
+
+Agent results are stored locally in `%LocalAppData%\MyPcGuard\agent-memory.json`. Agent recommendations can be disabled in Settings, and the memory can be cleared from the app.
+
+## Agent Safety Rules
+
+- Agents cannot make system changes without explicit user approval.
+- Action plans must explain the reason, expected benefit and possible side effects.
+- Online research is disabled by default and requires user consent.
+- File uploads are not part of the current design.
+- Unknown web results are not treated as trusted.
+- Third-party driver updater sites, download mirrors, crack/keygen sites and unknown EXE download pages are rejected.
+- MyPcGuard does not claim to be antivirus software.
+
+## Driver Download Policy
+
+MyPcGuard must never automatically download or install drivers.
+
+Allowed driver behavior:
+
+- Detect missing or problematic drivers locally.
+- Identify hardware vendor and device model when local data is available.
+- Search possible official sources only when online research is enabled.
+- Verify whether a source is official, likely official, unverified or rejected.
+- Show verified official sources to the user.
+- Let the user open official sources manually.
+
+Forbidden driver behavior:
+
+- No automatic driver installer downloads.
+- No automatic driver installer execution.
+- No third-party driver updater websites.
+- No download mirror websites.
+- No unknown EXE recommendations.
+- No unofficial driver packages.
+
+Preferred driver actions are Windows Update, Device Manager, official manufacturer pages and local driver report export. The final decision to download or install anything always belongs to the user.
+
 ## Languages
 
 The app supports:

@@ -169,6 +169,8 @@
   <data name="Processes_Intro" xml:space="preserve"><value>Calisan islemleri CPU kullanimi, imza, yayinci ve dosya yolu ile gosterir.</value></data>
   <data name="Processes_Empty" xml:space="preserve"><value>Henuz islem verisi yuklenmedi. Tarama baslat veya kisa bir sure bekle.</value></data>
   <data name="Nav_Programs" xml:space="preserve"><value>Programlar</value></data>
+  <data name="Nav_System" xml:space="preserve"><value>Sistem</value></data>
+  <data name="Nav_Cleanup" xml:space="preserve"><value>Temizlik</value></data>
   <data name="Programs_Intro" xml:space="preserve"><value>Windows'ta yuklu programlari gor, surumleri kontrol et ve gerekirse resmi kaldiriciyi baslat.</value></data>
   <data name="Programs_Count" xml:space="preserve"><value>{0} program bulundu</value></data>
   <data name="Common_Version" xml:space="preserve"><value>Surum</value></data>
@@ -177,7 +179,124 @@
   <data name="Programs_Uninstall" xml:space="preserve"><value>Kaldir</value></data>
   <data name="Programs_UninstallTooltip" xml:space="preserve"><value>Bu programin Windows kaldiricisini baslatir. MyPcGuard dosyalari dogrudan silmez.</value></data>
   <data name="Programs_UninstallConfirm" xml:space="preserve"><value>{0} icin Windows kaldiricisi baslatilsin mi?</value></data>
+  <data name="Programs_AnalyzeLeftovers" xml:space="preserve"><value>Kalıntıları analiz et</value></data>
+  <data name="Programs_LeftoverPlan" xml:space="preserve"><value>Kaldirma temizlik plani</value></data>
+  <data name="Programs_LeftoverSafety" xml:space="preserve"><value>MyPcGuard burada hicbir seyi otomatik silmez. Sadece programa acikca ait adaylar gosterilir ve ileride bilincli onay gerekir.</value></data>
+  <data name="System_Intro" xml:space="preserve"><value>Donanim, diskler, surucu ipuclari ve hizli yerel performans degerleri tek yerde.</value></data>
+  <data name="System_Hardware" xml:space="preserve"><value>Donanim ozeti</value></data>
+  <data name="System_DiskHealth" xml:space="preserve"><value>Disk sagligi</value></data>
+  <data name="System_Benchmark" xml:space="preserve"><value>Hizli RAM/SSD testi</value></data>
+  <data name="System_ComputerName" xml:space="preserve"><value>Bilgisayar adi</value></data>
+  <data name="System_UserName" xml:space="preserve"><value>Kullanici</value></data>
+  <data name="System_Processor" xml:space="preserve"><value>Islemci</value></data>
+  <data name="System_LogicalProcessors" xml:space="preserve"><value>Mantiksal islemci</value></data>
+  <data name="System_TotalMemory" xml:space="preserve"><value>Bellek</value></data>
+  <data name="System_DiskName" xml:space="preserve"><value>Surucu</value></data>
+  <data name="System_DiskFormat" xml:space="preserve"><value>Format</value></data>
+  <data name="System_DiskSize" xml:space="preserve"><value>Boyut</value></data>
+  <data name="System_DiskFree" xml:space="preserve"><value>Bos</value></data>
+  <data name="System_DiskUsed" xml:space="preserve"><value>Dolu</value></data>
+  <data name="System_DiskRecommendation" xml:space="preserve"><value>Oneri</value></data>
+  <data name="System_RunBenchmark" xml:space="preserve"><value>Testi baslat</value></data>
+  <data name="System_BenchmarkDisclaimer" xml:space="preserve"><value>Kisa yerel fikir testi. Sonuclar guc modu, cache, arka plan yuku ve bos disk alanina gore degisebilir.</value></data>
+  <data name="System_DiskWrite" xml:space="preserve"><value>SSD yazma</value></data>
+  <data name="System_DiskRead" xml:space="preserve"><value>SSD okuma</value></data>
+  <data name="System_MemoryCopy" xml:space="preserve"><value>RAM kopyalama</value></data>
+  <data name="System_BenchmarkCompleted" xml:space="preserve"><value>Hizli performans testi tamamlandi.</value></data>
   <data name="Action_Uninstall_Started" xml:space="preserve"><value>Kaldirici baslatildi.</value></data>
   <data name="Action_Uninstall_Failed" xml:space="preserve"><value>Kaldirici baslatilamadi.</value></data>
   <data name="Action_Uninstall_NotAvailable" xml:space="preserve"><value>Bu program icin kaldirma komutu bulunamadi.</value></data>
+  <data name="Security_HealthLabel" xml:space="preserve"><value>Bilgisayar guvenligi</value></data>
+  <data name="Security_HealthUnknown" xml:space="preserve"><value>Henuz bilinmiyor</value></data>
+  <data name="Security_HealthUnsafe" xml:space="preserve"><value>Guvenli degil</value></data>
+  <data name="Security_HealthAttention" xml:space="preserve"><value>Dikkat gerekiyor</value></data>
+  <data name="Security_HealthMostlySafe" xml:space="preserve"><value>Genel olarak guvenli</value></data>
+  <data name="Security_HealthSafe" xml:space="preserve"><value>Guvenli gorunuyor</value></data>
+  <data name="Security_ScanStateLabel" xml:space="preserve"><value>Tarama durumu</value></data>
+  <data name="Security_NotScannedState" xml:space="preserve"><value>Henuz tam tarama yapilmadi.</value></data>
+  <data name="Security_ScannedState" xml:space="preserve"><value>Son tarama: {0}</value></data>
+  <data name="Security_ActionableFindingsLabel" xml:space="preserve"><value>Dikkat isteyen</value></data>
+  <data name="Security_HighFindingsLabel" xml:space="preserve"><value>Yuksek risk</value></data>
+  <data name="Security_TopFindingsTitle" xml:space="preserve"><value>Onemli guvenlik bulgulari</value></data>
+  <data name="Security_NoFindings" xml:space="preserve"><value>Tarama sonucunda oncelikli guvenlik bulgusu yok. Defender ve sistem yukunu yine de takip et.</value></data>
+  <data name="Security_StartScanHint" xml:space="preserve"><value>Bilgisayarin guvenli mi degil mi net gormek icin tarama baslat. Defender, imzalar, riskli islemler ve autostart birlikte degerlendirilir.</value></data>
+  <data name="Security_SummarySafe" xml:space="preserve"><value>Defender aktif ve oncelikli risk bulunmadi.</value></data>
+  <data name="Security_SummaryHighRisk" xml:space="preserve"><value>{0} yuksek risk dahil toplam {1} bulgu dikkat istiyor.</value></data>
+  <data name="Security_SummaryAttention" xml:space="preserve"><value>{0} bulgu kontrol edilmeli. Onerilen aksiyonlari izle.</value></data>
+  <data name="Security_DefenderUnavailable" xml:space="preserve"><value>Defender durumu okunamadi. Windows Guvenligi'ni manuel kontrol et.</value></data>
+  <data name="Security_DefenderHealthy" xml:space="preserve"><value>Defender korumasi aktif gorunuyor.</value></data>
+  <data name="Security_DefenderAttention" xml:space="preserve"><value>Defender korumasi dikkat istiyor.</value></data>
+  <data name="Performance_HealthLabel" xml:space="preserve"><value>Performans durumu</value></data>
+  <data name="Performance_HealthGood" xml:space="preserve"><value>Iyi</value></data>
+  <data name="Performance_HealthAttention" xml:space="preserve"><value>Yavaslayabilir</value></data>
+  <data name="Performance_HealthSlow" xml:space="preserve"><value>Yuksek yuk</value></data>
+  <data name="Performance_SummaryHighUsage" xml:space="preserve"><value>CPU, bellek veya disk kullanimi cok yuksek. Bilgisayar yavas hissedilebilir.</value></data>
+  <data name="Performance_SummaryLiveOnly" xml:space="preserve"><value>Canli CPU, RAM ve disk degerleri gosteriliyor. Autostart etkisi icin tarama baslat.</value></data>
+  <data name="Performance_SummaryWithStartup" xml:space="preserve"><value>{1} baslangic ogesinden {0} tanesi performansi etkileyebilir.</value></data>
+  <data name="Performance_UsageGood" xml:space="preserve"><value>Normal</value></data>
+  <data name="Performance_UsageElevated" xml:space="preserve"><value>Yuksek</value></data>
+  <data name="Performance_UsageHigh" xml:space="preserve"><value>Cok yuksek</value></data>
+  <data name="Performance_StartupNotScanned" xml:space="preserve"><value>Baslangic etkisi icin henuz tarama yapilmadi.</value></data>
+  <data name="Performance_StartupImpact" xml:space="preserve"><value>{1} baslangic ogesi icinde {0} optimize edilebilir oge var.</value></data>
+  <data name="Agent_Recommendations" xml:space="preserve"><value>Agent onerileri</value></data>
+  <data name="Agent_Confidence" xml:space="preserve"><value>Guven</value></data>
+  <data name="Agent_Reason" xml:space="preserve"><value>Neden</value></data>
+  <data name="Agent_CreateActionPlan" xml:space="preserve"><value>Aksiyon plani</value></data>
+  <data name="Agent_Ignore" xml:space="preserve"><value>Yoksay</value></data>
+  <data name="Agent_RemindLater" xml:space="preserve"><value>Sonra hatirlat</value></data>
+  <data name="Agent_ExecuteAfterApproval" xml:space="preserve"><value>Onaydan sonra uygula</value></data>
+  <data name="Agent_OnlineResearchDisabled" xml:space="preserve"><value>Cevrimici arastirma kapali.</value></data>
+  <data name="Agent_RequiresApproval" xml:space="preserve"><value>Kullanici onayi gerekir</value></data>
+  <data name="Agent_NoAutomaticChanges" xml:space="preserve"><value>Agent'lar kullanici onayi olmadan sistemde degisiklik yapmaz.</value></data>
+  <data name="Agent_Empty" xml:space="preserve"><value>Agent onerileri icin once tarama baslat.</value></data>
+  <data name="Agent_Analyzing" xml:space="preserve"><value>Agent'lar analiz ediyor...</value></data>
+  <data name="Agent_Completed" xml:space="preserve"><value>{0} agent sonucu hazir.</value></data>
+  <data name="Agent_MemoryCleared" xml:space="preserve"><value>Agent hafizasi temizlendi.</value></data>
+  <data name="AgentSettings_Title" xml:space="preserve"><value>Agent ayarlari</value></data>
+  <data name="AgentSettings_EnableRecommendations" xml:space="preserve"><value>Agent onerilerini etkinlestir</value></data>
+  <data name="AgentSettings_RememberIgnored" xml:space="preserve"><value>Yoksayilan onerileri hatirla</value></data>
+  <data name="AgentSettings_ClearMemory" xml:space="preserve"><value>Agent hafizasini temizle</value></data>
+  <data name="AgentSettings_ClearMemoryHint" xml:space="preserve"><value>Yerel agent hafizasi %LocalAppData%\MyPcGuard\agent-memory.json dosyasinda tutulur.</value></data>
+  <data name="ActionPlan_Title" xml:space="preserve"><value>Aksiyon plani</value></data>
+  <data name="ActionPlan_Steps" xml:space="preserve"><value>Adimlar</value></data>
+  <data name="ActionPlan_SafetyLevel" xml:space="preserve"><value>Guvenlik seviyesi</value></data>
+  <data name="ActionPlan_RequiresAdmin" xml:space="preserve"><value>Yonetici gerekir</value></data>
+  <data name="ActionPlan_Reversible" xml:space="preserve"><value>Geri alinabilir</value></data>
+  <data name="ActionPlan_BackupLocation" xml:space="preserve"><value>Yedek konumu</value></data>
+  <data name="ActionPlan_PossibleSideEffects" xml:space="preserve"><value>Olası etkiler</value></data>
+  <data name="ActionPlan_ConfirmExecution" xml:space="preserve"><value>Uygulamayi onayla</value></data>
+  <data name="WebResearch_Title" xml:space="preserve"><value>Cevrimici arastirma</value></data>
+  <data name="WebResearch_AllowOnlineResearch" xml:space="preserve"><value>Cevrimici arastirmaya izin ver</value></data>
+  <data name="WebResearch_OfficialSourcesOnly" xml:space="preserve"><value>Sadece resmi kaynaklari kullan</value></data>
+  <data name="WebResearch_SourceVerified" xml:space="preserve"><value>Kaynak dogrulandi</value></data>
+  <data name="WebResearch_SourceUnverified" xml:space="preserve"><value>Kaynak dogrulanmadi</value></data>
+  <data name="WebResearch_SourceRejected" xml:space="preserve"><value>Kaynak reddedildi</value></data>
+  <data name="WebResearch_NoAutomaticDownloads" xml:space="preserve"><value>Driver icin otomatik indirme veya kurulum yapilmaz; kullanici resmi kaynagi kendisi acar.</value></data>
+  <data name="ActionPlan_Created" xml:space="preserve"><value>{0} icin aksiyon plani olusturuldu.</value></data>
+  <data name="ActionPlan_Executed" xml:space="preserve"><value>Aksiyon plani tamamlandi: {0} adim uygulandi, {1} adim atlandi.</value></data>
+  <data name="Agent_Ignored" xml:space="preserve"><value>{0} onerisi yoksayildi.</value></data>
+  <data name="Agent_RemindLaterSet" xml:space="preserve"><value>{0} daha sonra hatirlatilacak.</value></data>
+  <data name="Common_Signature" xml:space="preserve"><value>İmza</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Bilinmiyor</value></data>
+  <data name="Common_NotAvailable" xml:space="preserve"><value>Yok / okunamadi</value></data>
+  <data name="Common_Yes" xml:space="preserve"><value>Evet</value></data>
+  <data name="Common_No" xml:space="preserve"><value>Hayir</value></data>
+  <data name="Risk_None" xml:space="preserve"><value>Yok</value></data>
+  <data name="Autostart_Recommended" xml:space="preserve"><value>Onerilen</value></data>
+  <data name="Autostart_UnnamedItem" xml:space="preserve"><value>Adsiz baslangic ogesi</value></data>
+  <data name="Autostart_RecommendationEssential" xml:space="preserve"><value>Sistem veya guvenlik icin onemli olabilir; devre disi birakilmasi onerilmez.</value></data>
+  <data name="Autostart_RecommendationRecommended" xml:space="preserve"><value>Bu ozelligi kullaniyorsan aktif birak.</value></data>
+  <data name="Autostart_RecommendationOptional" xml:space="preserve"><value>Otomatik baslamak zorunda degil; devre disi birakmak acilisi hizlandirabilir.</value></data>
+  <data name="Autostart_RecommendationUnnecessary" xml:space="preserve"><value>Gerekmiyorsa devre disi birakilabilir.</value></data>
+  <data name="Autostart_RecommendationSuspicious" xml:space="preserve"><value>Once dosya konumunu ve imzayi kontrol et, ardindan Defender taramasi baslat.</value></data>
+  <data name="Autostart_RecommendationUnknown" xml:space="preserve"><value>Once dosya konumunu, yayinciyi ve imzayi kontrol et.</value></data>
+  <data name="Signature_MicrosoftSigned" xml:space="preserve"><value>Microsoft imzali</value></data>
+  <data name="Signature_Signed" xml:space="preserve"><value>Imzali</value></data>
+  <data name="Signature_Unsigned" xml:space="preserve"><value>Imzasiz</value></data>
+  <data name="Signature_NotAccessible" xml:space="preserve"><value>Okunamadi</value></data>
+  <data name="Signature_NotChecked" xml:space="preserve"><value>Kontrol edilmedi</value></data>
+  <data name="Signature_NotApplicable" xml:space="preserve"><value>Uygun degil</value></data>
+  <data name="Signature_Unknown" xml:space="preserve"><value>Imza bilinmiyor</value></data>
+  <data name="Security_DefenderActive" xml:space="preserve"><value>Aktif</value></data>
+  <data name="Security_DefenderNeedsAttention" xml:space="preserve"><value>Dikkat gerekiyor</value></data>
 </root>

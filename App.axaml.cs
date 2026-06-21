@@ -4,6 +4,11 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Microsoft.Extensions.DependencyInjection;
+using MyPcGuard.Agents.Abstractions;
+using MyPcGuard.Agents.Core;
+using MyPcGuard.Agents.Models;
+using MyPcGuard.Agents.Web;
+using MyPcGuard.Agents.Windows;
 using MyPcGuard.Models;
 using MyPcGuard.Services.Abstractions;
 using MyPcGuard.Services.Common;
@@ -86,6 +91,25 @@ public partial class App : Application
         services.AddSingleton<ILocalizationService, LocalizationService>();
         services.AddSingleton<IActionHistoryService, ActionHistoryService>();
         services.AddSingleton<IQuarantineService, QuarantineService>();
+        services.AddSingleton<IHardwareInfoService, HardwareInfoService>();
+        services.AddSingleton<IAgentPolicyService, AgentPolicyService>();
+        services.AddSingleton<IActionPlanBuilder, ActionPlanBuilder>();
+        services.AddSingleton<IActionApprovalService, ActionApprovalService>();
+        services.AddSingleton<IAgentMemoryService, AgentMemoryService>();
+        services.AddSingleton<IOfficialSourceVerifier, OfficialSourceVerifier>();
+        services.AddSingleton<IWebResearchAgent, WebResearchAgent>();
+        services.AddSingleton<IAgent, WebResearchAgent>();
+        services.AddSingleton<IAgent, StartupOptimizationAgent>();
+        services.AddSingleton<IAgent, SecurityAgent>();
+        services.AddSingleton<IAgent, ProgramUninstallAgent>();
+        services.AddSingleton<IAgent, DriverCheckAgent>();
+        services.AddSingleton<IAgent>(_ => new PlaceholderAgent("Disk Cleanup Agent", "Analyzes cleanup categories and builds safe cleanup plans.", AgentCategory.DiskCleanup));
+        services.AddSingleton<IAgent>(_ => new PlaceholderAgent("Disk Health Agent", "Interprets disk health and recommends backup when needed.", AgentCategory.DiskHealth));
+        services.AddSingleton<IAgent>(_ => new PlaceholderAgent("Hardware Info Agent", "Summarizes hardware information and cautious upgrade notes.", AgentCategory.HardwareInfo));
+        services.AddSingleton<IAgent>(_ => new PlaceholderAgent("Performance Benchmark Agent", "Interprets local benchmark results without professional benchmark claims.", AgentCategory.SystemHealth));
+        services.AddSingleton<IAgent>(_ => new PlaceholderAgent("File Converter Agent", "Checks local conversion dependencies and keeps source files unchanged.", AgentCategory.FileConversion));
+        services.AddSingleton<IAgent>(_ => new PlaceholderAgent("Reporting Agent", "Prepares local reports for scan and agent results.", AgentCategory.Reporting));
+        services.AddSingleton<IAgentOrchestrator, AgentOrchestrator>();
         services.AddTransient<MainWindowViewModel>();
 
         RegisterPlatformServices(services, PlatformDetector.Detect());
@@ -108,6 +132,8 @@ public partial class App : Application
                 services.AddSingleton<IDefenderActionService, WindowsDefenderActionService>();
                 services.AddSingleton<IInstalledProgramScanner, WindowsInstalledProgramScanner>();
                 services.AddSingleton<IInstalledProgramActionService, WindowsInstalledProgramActionService>();
+                services.AddSingleton<IUninstallCleanupPlanner, WindowsUninstallCleanupPlanner>();
+                services.AddSingleton<IDeviceDriverScanner, WindowsDeviceDriverScanner>();
                 break;
             case OperatingSystemType.Linux:
                 services.AddSingleton<ISystemInfoService, LinuxSystemInfoService>();
@@ -120,6 +146,8 @@ public partial class App : Application
                 services.AddSingleton<IDefenderActionService, UnsupportedDefenderActionService>();
                 services.AddSingleton<IInstalledProgramScanner, UnsupportedInstalledProgramScanner>();
                 services.AddSingleton<IInstalledProgramActionService, UnsupportedInstalledProgramActionService>();
+                services.AddSingleton<IUninstallCleanupPlanner, UnsupportedUninstallCleanupPlanner>();
+                services.AddSingleton<IDeviceDriverScanner, UnsupportedDeviceDriverScanner>();
                 break;
             case OperatingSystemType.MacOS:
                 services.AddSingleton<ISystemInfoService, MacSystemInfoService>();
@@ -132,6 +160,8 @@ public partial class App : Application
                 services.AddSingleton<IDefenderActionService, UnsupportedDefenderActionService>();
                 services.AddSingleton<IInstalledProgramScanner, UnsupportedInstalledProgramScanner>();
                 services.AddSingleton<IInstalledProgramActionService, UnsupportedInstalledProgramActionService>();
+                services.AddSingleton<IUninstallCleanupPlanner, UnsupportedUninstallCleanupPlanner>();
+                services.AddSingleton<IDeviceDriverScanner, UnsupportedDeviceDriverScanner>();
                 break;
             default:
                 services.AddSingleton<ISystemInfoService, LinuxSystemInfoService>();
@@ -144,6 +174,8 @@ public partial class App : Application
                 services.AddSingleton<IDefenderActionService, UnsupportedDefenderActionService>();
                 services.AddSingleton<IInstalledProgramScanner, UnsupportedInstalledProgramScanner>();
                 services.AddSingleton<IInstalledProgramActionService, UnsupportedInstalledProgramActionService>();
+                services.AddSingleton<IUninstallCleanupPlanner, UnsupportedUninstallCleanupPlanner>();
+                services.AddSingleton<IDeviceDriverScanner, UnsupportedDeviceDriverScanner>();
                 break;
         }
     }
